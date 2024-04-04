@@ -1,0 +1,128 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model users {
+  userid        Int      @id @default(autoincrement()) @unique // Primary key
+  username      String    @unique
+  password      String
+  email         String    @unique
+  roleid        Int
+  department    departments @relation(fields: [departmentid], references: [departmentid])
+  departmentid  Int
+  roles        roles     @relation(fields: [roleid], references: [id])
+  ideas         ideas[]    // Relation to ideas model remains the same
+  documents     documents[] // Relation to documents model remains the same
+  comments      comments[]  // Added relation to Comments model
+
+  @@map("users")
+}
+// Define the model for the roles table
+model roles {
+  id          Int       @id @default(autoincrement()) // Primary key
+  name        String    @unique
+  description String?
+  users       users[]
+  @@map("roles")
+}
+
+
+// Define the model for the departments table
+model departments {
+  departmentid  Int       @id @default(autoincrement()) // Primary key
+  departmentname String
+  users         users[]
+  ideas         ideas[]
+  @@map("departments")
+}
+
+
+model ideas {
+  ideaid           Int      @id @default(autoincrement()) @unique // Primary key
+  userid           Int
+  user             users   @relation(fields: [userid], references: [userid]) // Foreign key to users table
+  departmentid      Int
+  department       departments @relation(fields: [departmentid], references: [departmentid])
+  closuredateid    Int
+  closuredate     closuredates @relation(fields: [closuredateid], references: [closuredateid])
+  ideatext         String
+  ideatitle        String
+  submissiondate  DateTime
+  isenabled        Boolean
+  isanonymous      Boolean
+  isinvestigated   Boolean
+  isthumbsup       Int
+  isthumbsdown     Int
+  ideacategories   ideacategories[]
+  documents        documents[]
+  comments         comments[]  // Added relation to Comments model
+
+  @@map("ideas")
+}
+
+
+model categories {
+  categoryid Int    @id @default(autoincrement()) // Primary key
+  categoryname String
+  ideacategories ideacategories[]
+  @@map("categories")
+}
+
+
+model ideacategories {
+  ideaid      Int        // Composite key
+  idea        ideas      @relation(fields: [ideaid], references: [ideaid])
+  categoryid  Int        // Composite key
+  category    categories @relation(fields: [categoryid], references: [categoryid])
+    
+  @@id([ideaid, categoryid])
+  @@map("ideacategories")
+}
+
+
+model documents {
+  documentid   Int      @id @default(autoincrement()) // Primary key
+  ideaid       Int
+  idea         ideas    @relation(fields: [ideaid], references: [ideaid])
+  userid       Int
+  user         users    @relation(fields: [userid], references: [userid])
+  documentname String
+  documentpath String
+
+  @@index([ideaid])
+  @@map("documents")
+}
+
+model closuredates {
+  closuredateid   Int       @id @default(autoincrement()) // Primary key
+  academicyear    String
+  closuredate     DateTime
+  finalclosuredate DateTime
+
+  ideas           ideas[] 
+     @@map("closuredates")
+}
+model comments {
+  commentid   Int      @id @default(autoincrement()) @unique  // Primary key
+  ideaid      Int
+  userid      Int
+  commenttext  String
+  commentdate DateTime @default(now())
+  isanonymous Boolean
+
+  idea         ideas   @relation(fields: [ideaid], references: [ideaid]) // Foreign key to ideas table
+  user         users   @relation(fields: [userid], references: [userid]) // Foreign key to users table
+
+  @@map("comments")
+}
