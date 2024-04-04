@@ -16,14 +16,16 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
+// dont do this, my mistake, the instructions are at the very end
 Steps: 
 open terminal
 1. npm install next-auth
 2. npm install prisma --save-dev
 3. npm install @prisma/client
-4. npx prisma init
+4
+5. npx prisma init
 6. npm install bcrypt
-5. use this to create you postgre db in pgAdmin:
+7. use this to create you postgre db in pgAdmin:
 CREATE TABLE users (
     userid SERIAL PRIMARY KEY,
     username VARCHAR(255),
@@ -111,7 +113,7 @@ CREATE TABLE stats (
     numberofcomments INT,
     FOREIGN KEY (departmentid) REFERENCES departments(departmentid)
 );
-6. paste this in prisma/schema.prisma : 
+8. paste this in prisma/schema.prisma : 
 model users {
   userid        Int      @id @default(autoincrement()) @unique // Primary key
   username      String    @unique
@@ -225,3 +227,17 @@ model comments {
 
   @@map("comments")
 }
+//new instructions
+
+if needed, you need to install npm,nvm,node js 
+1. npm install // in terminal
+2. npm install prisma --save-dev
+2. download pgadmin // for the postgre database
+3. create a database in pgadmin
+4. go to table inside a database and right click and select script and the select insert script, and paste the create tables  sql  statements in this document
+5.go to the .env 
+6. "postgresql://postgres:<password>@localhost:5432/<database_name>?schema=public" // in change to suit your postgre database setting
+7. npx prisma generate // in the terminal
+8. to test run, type,  next dev // in terminal
+
+// if you run into errors, please reach out to me. have a good day
