@@ -60,6 +60,7 @@ CREATE TABLE ideas (
     isinvestigated BOOLEAN,
     isthumbsup INT,
     isthumbsdown INT,
+    ideatitle TEXT,
     FOREIGN KEY (userid) REFERENCES users(userid),
     FOREIGN KEY (departmentid) REFERENCES departments(departmentid),
     FOREIGN KEY (closuredateid) REFERENCES closuredates(closuredateid)

@@ -3,32 +3,56 @@ import { getServerSession } from "next-auth/next"
 
 import { authOptions } from "../../auth/[...nextauth]/options"
 import prisma from "../../auth/[...nextauth]/lib/prisma"
-
+import { sendIdeaSubmissionNotification } from '../../../../app/node';
 export async function POST(request) {
   const session = await getServerSession(authOptions)
   try {
    
      
-        const formData = await request.formData();
-        const isAnonymous = formData.get('isAnonymous') === 'false' ? false : true;
+        const formData =  await request.json()
+        const Anonymous = formData.isanonymous;
+        const isAnonymous = JSON.parse(Anonymous); 
      
-    const categoryId = parseInt(formData.get('categoryValue'));
 
+    const categoryId = parseInt(formData.categoryValue);
+    console.log(categoryId)
+    const submissionDate = new Date();
+ console.log("submissionDate", submissionDate)
+ 
+
+const  closureData = await prisma.ideadates.findFirst({
+  where: {
+    closuredate: {
+      lte: submissionDate // Find the closure date that is less than or equal to the submission date
+    }
+  },
+  orderBy: {
+    closuredate: 'desc' // Order by closure date in descending order
+  }
+});
+console.log("closureData var", closureData)
+
+     if (!closureData) {
+      throw new Error('Closure date not found for the given submission date');
+    }
+
+    const closureDateId = closureData.closuredateid;
+    
 const ideaData = {
   userid: session.user.userId,
   departmentid: session.user.departmentId,
-  closuredateid: 1,
-  ideatext: formData.get('ideaText'),
-  submissiondate: new Date(),
-  isenabled: true,
+  closuredateid: closureDateId,
+  ideatext: formData.ideaText,
+  submissiondate: submissionDate,
+  isclosure: false,
+  isfinalclosure:false,
   isanonymous: isAnonymous,
-  isinvestigated: false,
-  isthumbsup: 0,
-  isthumbsdown: 0,
-  ideatitle: formData.get('ideaTitle'), 
+  ideatitle: formData.ideaTitle, 
  
 };
 
+await sendIdeaSubmissionNotification(ideaData);
+console.log("diea" , ideaData)
 const newIdeaWithCategory = await prisma.ideas.create({
   data: {
     ...ideaData,

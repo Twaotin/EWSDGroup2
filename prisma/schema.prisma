@@ -18,14 +18,20 @@ model users {
   username      String    @unique
   password      String
   email         String    @unique
-  roleid        Int
-  department    departments @relation(fields: [departmentid], references: [departmentid])
-  departmentid  Int
-  roles        roles     @relation(fields: [roleid], references: [id])
+  roleid        Int?
+  department    departments? @relation(fields: [departmentid], references: [departmentid])
+  departmentid  Int?
+  isactive  Boolean
+  lastlogin DateTime
+  passwordreset  String?  @unique
+  passwordresetexpire DateTime?
+  roles        roles?     @relation(fields: [roleid], references: [id])
   ideas         ideas[]    // Relation to ideas model remains the same
-  documents     documents[] // Relation to documents model remains the same
+  ideareports      ideareports[]
   comments      comments[]  // Added relation to Comments model
-
+  ideaviews        ideaviews[]
+  ideathumbup      ideathumbup[]
+  ideathumbdown     ideathumbdown[]
   @@map("users")
 }
 // Define the model for the roles table
@@ -55,17 +61,18 @@ model ideas {
   departmentid      Int
   department       departments @relation(fields: [departmentid], references: [departmentid])
   closuredateid    Int
-  closuredate     closuredates @relation(fields: [closuredateid], references: [closuredateid])
+  ideadate     ideadates @relation(fields: [closuredateid], references: [closuredateid])
   ideatext         String
   ideatitle        String
   submissiondate  DateTime
-  isenabled        Boolean
+  isclosure       Boolean
+  isfinalclosure   Boolean
   isanonymous      Boolean
-  isinvestigated   Boolean
-  isthumbsup       Int
-  isthumbsdown     Int
+  ideathumbup      ideathumbup[]
+  ideathumbdown     ideathumbdown[]
+  ideaviews        ideaviews[]
   ideacategories   ideacategories[]
-  documents        documents[]
+  ideareports      ideareports[]
   comments         comments[]  // Added relation to Comments model
 
   @@map("ideas")
@@ -90,28 +97,63 @@ model ideacategories {
   @@map("ideacategories")
 }
 
+model ideaviews {
+  ideaviewid  Int    @id @default(autoincrement()) 
+  idea         ideas  @relation(fields: [ideaid], references: [ideaid])
+  ideaid      Int
+  user         users  @relation(fields: [userid], references: [userid])
+  userid      Int 
 
-model documents {
-  documentid   Int      @id @default(autoincrement()) // Primary key
-  ideaid       Int
-  idea         ideas    @relation(fields: [ideaid], references: [ideaid])
-  userid       Int
-  user         users    @relation(fields: [userid], references: [userid])
-  documentname String
-  documentpath String
-
-  @@index([ideaid])
-  @@map("documents")
+  @@map("ideaviews")
+  @@unique([ideaid, userid]) // Enforce uniqueness of (ideaid, userid) pairs
 }
 
-model closuredates {
+model ideathumbup {
+  ideathumbupid  Int    @id @default(autoincrement()) 
+  idea         ideas  @relation(fields: [ideaid], references: [ideaid])
+  ideaid      Int
+  user         users  @relation(fields: [userid], references: [userid])
+  userid      Int 
+
+  @@map("ideathumbup")
+  @@unique([ideaid, userid]) // Enforce uniqueness of (ideaid, userid) pairs
+}
+
+model ideathumbdown {
+  ideathumbdownid  Int    @id @default(autoincrement()) 
+  idea         ideas  @relation(fields: [ideaid], references: [ideaid])
+  ideaid      Int
+  user         users  @relation(fields: [userid], references: [userid])
+  userid      Int 
+
+  @@map("ideathumbdown")
+  @@unique([ideaid, userid]) // Enforce uniqueness of (ideaid, userid) pairs
+}
+
+model ideadates {
   closuredateid   Int       @id @default(autoincrement()) // Primary key
   academicyear    String
   closuredate     DateTime
   finalclosuredate DateTime
 
   ideas           ideas[] 
-     @@map("closuredates")
+     @@map("ideadates")
+}
+
+model ideareports {
+  reportid   Int      @id @default(autoincrement())  @unique 
+  idea         ideas  @relation(fields: [ideaid], references: [ideaid])
+  ideaid      Int
+  user         users  @relation(fields: [userid], references: [userid])
+  userid      Int 
+  reportdate DateTime @default(now())
+  reporttext String
+  reportsubject String  
+  reviewstatus String  
+  reviewer     String? 
+  
+ 
+  @@map("ideareports")
 }
 model comments {
   commentid   Int      @id @default(autoincrement()) @unique  // Primary key

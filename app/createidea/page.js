@@ -1,6 +1,6 @@
 import React from 'react'
 
-import CreateIdea from "../components/createIdea"
+import CreateIdea from "../components/create/createIdea"
 
 export default async function page() {
    

@@ -1,22 +1,37 @@
 import prisma from "../../auth/[...nextauth]/lib/prisma"
 import {  NextResponse } from "next/server";
+import { getServerSession } from "next-auth/next"
+import { authOptions } from "../../auth/[...nextauth]/options"
 
-
-export async function PATCH(request) {
+export async function POST(request) {
+  const session = await getServerSession(authOptions)
   const data = await request.json() 
       
  
-   try {
-  // Update the thumbs down count in the database using Prisma
-  const updatedIdea = await prisma.ideas.update({
-    where: { ideaid: data.ideaid  },
-    data: {
-      isthumbsup: data.isthumbsup // Set the thumbsDown count directly
-    }
-  });
+   try { 
+          const existingView = await prisma.ideathumbup.findFirst({
+            where: {
+                ideaid: parseInt(data.ideaid),
+                userid: session.user.userId
+                
+            } 
+        });
+            if(existingView) {
+              return NextResponse.json({ message: ' You have already given a thumbs up to this idea!' })
+            }else{
+        const thumbup = {
+
+                ideaid: parseInt(data.ideaid),
+                userid: session.user.userId
+            };
+            await prisma.ideathumbup.create({
+                data: thumbup
+            });
+          }
+   
 
   // Send a success response
-  return NextResponse.json(updatedIdea);
+  return NextResponse.json({ message: ' successfully idea thumbsup!' });
 } catch (error) {
   // Handle errors
   console.error('Error updating thumbs down count:', error.message);

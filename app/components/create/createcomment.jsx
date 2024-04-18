@@ -5,7 +5,7 @@ const CommentForm = ({ id }) => {
     const router = useRouter()
   const [comment, setComment] = useState({
     commenttext: '',
-    isAnonymous: false,
+    isanonymous:  false,
     ideaid: parseInt(id)
   });
   const [errors, setErrors] = useState({});
@@ -50,8 +50,9 @@ const CommentForm = ({ id }) => {
       setSuccessMessage('Comment submitted successfully!');
       // Clear form fields
       setComment({
-        commentText: '',
-        isAnonymous: false,
+        commenttext: '',
+        isanonymous: false,
+        ideaid: parseInt(id)
       });
       setErrors({});
     } catch (error) {
@@ -77,8 +78,8 @@ const CommentForm = ({ id }) => {
           <label>
             <input
               type="checkbox"
-              name="isAnonymous"
-              checked={comment.isAnonymous}
+              name="isanonymous"
+              checked={comment.isanonymous}
               onChange={handleChange}
             />
             Anonymous

@@ -53,25 +53,25 @@ const user = await prisma.users.findUnique({
 
                            if(user) 
                            {
-                                                    console.log("User Exists");
-                                 // const salt = await bcrypt.genSalt(10);
-                             const hashedPasswordToCompare = await bcrypt.hash(user.password, 10);
+                               console.log("User Exists");
+                                
+                             const hashedPasswordToCompare1 = await bcrypt.hash(credentials.password, 10);
+                             const Passwordhash = await bcrypt.hash(credentials.password, 10);
+                             
             const match = await bcrypt.compare(
               credentials.password,
-             hashedPasswordToCompare
+             user.password
             );
 
                             if(match) {
                             console.log("mathced")
-                                /*
-                               let userRole = " ";
-                       if (user.role.name == "QA Manager" ) {
-                           userRole = " Super_admin";
-                              }else if(user.role.name == "QA Coordinator") {
-                              userRole = "Admin";
-                            }else{
-                              userRole = "Staff";
-                            } */
+                               
+                               await prisma.users.update({
+                                where: { userid: user.userid },
+                          data: {
+                        lastlogin: new Date() // Set lastLogin to current timestamp
+                      }
+                         });
 
                             
                             const send = {
@@ -80,11 +80,11 @@ const user = await prisma.users.findUnique({
                                  role: user.roles.name,  
                             department: user.department.departmentname,
                             departmentId: user.department.departmentid
-                              //role:user.role.name,
-                             // rolen: userRole,
-                             //randomKey: 'Hey cool'
+                           
                             }
                                   return send
+                            }else {
+                              console.log("not matc")
                             } 
                             
                             console.log("reached")
