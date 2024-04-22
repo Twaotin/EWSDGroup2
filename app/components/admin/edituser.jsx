@@ -1,7 +1,11 @@
 'use client'
 import { useState, useEffect } from 'react';
-
-
+import React from 'react';
+import Form from 'react-bootstrap/Form';
+import Col from 'react-bootstrap/Col';
+import Row from 'react-bootstrap/Row';
+import Button from 'react-bootstrap/Button';
+import Alert from 'react-bootstrap/Alert';
 
 const EditUser = ({ id }) => {
   const [show, setShow] = useState(false);
@@ -9,7 +13,8 @@ const EditUser = ({ id }) => {
     username: '',
     isactive: false,
     email: '',
-    passwordChanged: false
+    passwordChanged: false,
+    password: ''
   });
   console.log(id)
   const [selectedRoleId, setSelectedRoleId] = useState();
@@ -18,7 +23,7 @@ const EditUser = ({ id }) => {
   const [dataRole, setDataRole] = useState([]);
   const [dataDepartment, setDataDepartment] = useState([]);
   const [passwordChanged, setPasswordChanged] = useState(false);
-
+const [Message, setMessage] = useState('');
   useEffect(() => {
     // Fetch data for roles
         const fetchUserData = async () => {
@@ -81,7 +86,8 @@ const EditUser = ({ id }) => {
 
 
   const handlePasswordChange = (event) => {
-     setFormData({ ...formData, password: event.target.value, passwordChanged: true });
+    const newPassword = event.target.value.trim();
+     setFormData({ ...formData, password: newPassword, passwordChanged: true });
   };
   
 
@@ -113,94 +119,125 @@ const response = await fetch("http://localhost:3000/api/edit/user", {
         });
     if (!response.ok) {
           throw new Error("Form submission failed");
+        }else{
+        const responseData = await response.json();
+        console.log(responseData);
+           setMessage(responseData.message);
+         const timeout = setTimeout(() => setMessage(''), 3000); 
+           return () => clearTimeout(timeout);
         }
 
 
-        const responseData = await response.json();
-        console.log(responseData);
+        
   
 };
 
   return (
-    <>
-     
-          <form onSubmit={handleRegistration}>
-             <div>
-              <label>Username</label>
-              <input
-                name="username"
-                type="text"
-                value={formData.username}
-                onChange={(e) => setFormData({ ...formData, username: e.target.value })}
-              />
-            </div>
-             <div>
-              <label>Email</label>
-              <input
-                name="email"
-                type="text"
-                value={formData.email}
-                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-              />
-            </div>
-            <div>
-              <label>Password</label>
-              <input
-                name="password"
-                type="text"
-                value={formData.password || " "}
-                onChange={handlePasswordChange}
-              />
-            </div>
-            <div>
-              <label>Active</label>
-              <input
-                name="isactive"
-                type="checkbox"
-                checked={formData.isactive}
-                onChange={(e) => setFormData({ ...formData, isactive: e.target.checked })}
-              />
-            </div>
-            <div>
-              <label>Role</label>
-              {isLoading ? (
-                <p>Loading data...</p>
-              ) : (
-                <select
-                  name="roleid"
-                  value={selectedRoleId || formData.roleid}
-                  onChange={handleRoleChange}
-                >
-                  {dataRole.map((role) => (
-                    <option key={role.id} value={role.id}>
-                      {role.name}
-                    </option>
-                  ))}
-                </select>
-              )}
-              
-            </div>
-            <div>
-              <label>Department</label>
-              {isLoading ? (
-                <p>Loading data...</p>
-              ) : (
-                <select
-                  name="departmentid"
-                  value={selectedDepartmentId || formData.departmentid}
-                  onChange={handleDepartmentChange}
-                >
-                  {dataDepartment.map((item) => (
-                    <option key={item.departmentid} value={item.departmentid}>
-                      {item.departmentname}
-                    </option>
-                  ))}
-                </select>
-              )}
-            </div>
-            <button type="submit">Submit</button>
-          </form>
-       
+    <>    
+        <div>
+    {Message && <Alert variant="light"> {Message}</Alert>}
+     <Form onSubmit={handleRegistration}>
+      <Row>
+        <Col>
+          <Form.Group controlId="formUsername">
+            <Form.Label>Username</Form.Label>
+            <Form.Control
+              name="username"
+              type="text"
+              value={formData.username}
+              onChange={(e) => setFormData({ ...formData, username: e.target.value })}
+            />
+          </Form.Group>
+        </Col>
+      </Row>
+      <Row>
+        <Col>
+          <Form.Group controlId="formEmail">
+            <Form.Label>Email</Form.Label>
+            <Form.Control
+              name="email"
+              type="text"
+              value={formData.email}
+              onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+            />
+          </Form.Group>
+        </Col>
+      </Row>
+      <Row>
+        <Col>
+          <Form.Group controlId="formPassword">
+            <Form.Label>Password</Form.Label>
+            <Form.Control
+              name="password"
+              type="text"
+              value={formData.password}
+              onChange={handlePasswordChange}
+            />
+          </Form.Group>
+        </Col>
+      </Row>
+      <Row>
+        <Col>
+          <Form.Group controlId="formIsActive">
+            <Form.Check
+              type="checkbox"
+              label="Active"
+              name="isactive"
+              checked={formData.isactive}
+              onChange={(e) => setFormData({ ...formData, isactive: e.target.checked })}
+            />
+          </Form.Group>
+        </Col>
+      </Row>
+      <Row>
+        <Col>
+          <Form.Group controlId="formRole">
+            <Form.Label>Role</Form.Label>
+            {isLoading ? (
+              <p>Loading data...</p>
+            ) : (
+              <Form.Select
+                name="roleid"
+                value={selectedRoleId || formData.roleid}
+                onChange={handleRoleChange}
+              >
+                {dataRole.map((role) => (
+                  <option key={role.id} value={role.id}>
+                    {role.name}
+                  </option>
+                ))}
+              </Form.Select>
+            )}
+          </Form.Group>
+        </Col>
+      </Row>
+      <Row>
+        <Col>
+          <Form.Group controlId="formDepartment">
+            <Form.Label>Department</Form.Label>
+            {isLoading ? (
+              <p>Loading data...</p>
+            ) : (
+              <Form.Select
+                name="departmentid"
+                value={selectedDepartmentId || formData.departmentid}
+                onChange={handleDepartmentChange}
+              >
+                {dataDepartment.map((item) => (
+                  <option key={item.departmentid} value={item.departmentid}>
+                    {item.departmentname}
+                  </option>
+                ))}
+              </Form.Select>
+            )}
+          </Form.Group>
+        </Col>
+      </Row>
+      <Button variant="primary" type="submit">
+        Submit
+      </Button>
+    </Form>
+       </div>
     </>
   );
 };

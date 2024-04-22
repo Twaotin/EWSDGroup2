@@ -5,6 +5,7 @@ import useSWR from 'swr';
 import Table from 'react-bootstrap/Table';
 
 import Deletdate from "../buttons/deletedate"
+import Deleteuser from "../buttons/deleteuser"
 import { useRouter } from 'next/navigation'
 function Admindash() {
     const [isEditing, setIsEditing] = useState(false);
@@ -26,12 +27,12 @@ const router = useRouter()
   return (
     <>
 
-    <div>
+    <div className='tabledata'>
         <h2>User table</h2>
-     <Table responsive>
+     <Table responsive variant="dark">
       <thead>
         <tr>
-          
+           <th>#</th>
           <th>username</th>
           <th>email</th>
           <th>Role</th>
@@ -39,38 +40,42 @@ const router = useRouter()
           <th>User Status</th>
           <th>Last login</th>
           <th>Edit User</th>
+          <th>Delete User</th>
         </tr>
       </thead>
       <tbody>
           {Users.map((user) => (
             <tr key={user.userid}>
+              <td>{user.userid}</td> 
               <td>{user.username }</td>
               <td>{user.email}</td> 
               <td>{user.roles.name}</td>
               <td>{user.department.departmentname}</td> 
               <td>{user.isactive ? 'Active' : 'Inactive'}</td>
               <td>{user.lastlogin}</td> 
-              <td>{user.userid}</td> 
+              
               <td>
-        <button type="button" onClick={() => router.push(`/api/edituser/${user.userid}`)}>
+        <button type="button" onClick={() => router.push(`/admin/edituser/${user.userid}`)}>
     Edit user
     </button> </td>
+    <td> <Deleteuser userid={user.userid}/></td>
             </tr>
           ))}
       </tbody>
     </Table>
      </div>
 
-     <div>
+     <div className='tabledata'>
         <h2>Dates table</h2>
-     <Table responsive>
+     <Table responsive variant="dark">
       <thead>
         <tr>
            <th>#</th>
           <th>Academic Year</th>
           <th>Closure Date</th>
           <th>Final Closure Date</th>
-          
+          <th>Add Date</th>
+          <th>Delete Date</th>
           
         </tr>
       </thead>
@@ -80,7 +85,6 @@ const router = useRouter()
               <td>{date.closuredateid }</td>
               <td>{date.academicyear}</td> 
               <td>{date.closuredate }</td>
-              <td>{date.finalclosuredate}</td> 
               <td>{date.finalclosuredate}</td> 
               <td>
         <button type="button" onClick={() => router.push(`/admin/adddate`)}>

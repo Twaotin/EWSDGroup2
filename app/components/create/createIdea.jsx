@@ -86,9 +86,7 @@ export default function CreateIdea() {
         });
 
         const responseData = await response.json();
-        toast.success(responseData.message, {
-          position: 'bottom-right',
-        });
+        
         setErrors({});
       } catch (error) {
         console.error("Error during form submission:", error);

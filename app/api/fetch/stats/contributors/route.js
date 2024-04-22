@@ -1,10 +1,11 @@
 "use server"
-import prisma from "../../../auth/[...nextauth]/lib/prisma"; // Assuming correct path
+import { getPrismaInstance, closePrismaInstance } from "../../../auth/[...nextauth]/lib/prisma"; // Assuming correct path
 import { NextResponse } from 'next/server';
 
 
 export async function GET(request) {
     try {
+       const prisma = getPrismaInstance();
         const results = await prisma.departments.findMany({
   where: {
     ideas: { some: { user: { roleid: { equals: 4 } } } }, // Filters departments with ideas from users with roleid = 4
@@ -21,6 +22,8 @@ export async function GET(request) {
     } catch (error) {
          console.log(error)
          return NextResponse.json({ message: 'Fetch Error ' });
-    }
+    }finally {
+    await closePrismaInstance();
+  }
  
 }

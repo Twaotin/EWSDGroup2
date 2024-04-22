@@ -11,7 +11,7 @@ import IdeapercentageChart from "../components/stats/statsideapercentage"
 export default function page() {
   return (
     <div>
-      <Popular />
+      
       <DepartmentIdeaChart/>
       <Statdeptmentcontributors/>
       <IdeawithoutChart/>

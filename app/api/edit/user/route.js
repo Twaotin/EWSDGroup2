@@ -1,9 +1,9 @@
 import {  NextResponse } from "next/server";
 import bcrypt from "bcrypt"; 
-import prisma from "../../auth/[...nextauth]/lib/prisma"
+import { getPrismaInstance, closePrismaInstance } from "../../auth/[...nextauth]/lib/prisma"
 export async function PATCH(request) {
     try {
-        
+        const prisma = getPrismaInstance();
          const formData =  await request.json()
     console.log(formData)
     if(formData.passwordChanged == true){
@@ -37,8 +37,8 @@ export async function PATCH(request) {
         username: formData.username,
         password: formData.password,
         email: formData.email,
-        roleid: formData.roleid, // Assuming the role ID you want to link
-        departmentid:parseInt(formData.departmentid), // Assuming the department ID you want to link
+        roleid: formData.roleid, 
+        departmentid:parseInt(formData.departmentid), 
         isactive: formData.isactive
       }
      console.log(data)
@@ -51,7 +51,9 @@ export async function PATCH(request) {
     } catch (error) {
         console.log(error)
         return NextResponse.json({ message: 'Error processing request' });
-    }
+    }finally {
+    await closePrismaInstance();
+  }
    
 
     

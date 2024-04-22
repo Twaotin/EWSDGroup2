@@ -7,5 +7,15 @@ const prisma =
   new PrismaClient({
     log: ['query']
   });
+const getPrismaInstance = () => {
+  return prisma;
+};
 
-export default prisma;
+const closePrismaInstance = async () => {
+  if (prisma) {
+    await prisma.$disconnect();
+    globalForPrisma.prisma = null;
+  }
+};
+
+export { getPrismaInstance, closePrismaInstance };

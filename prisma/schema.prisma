@@ -22,7 +22,7 @@ model users {
   department    departments? @relation(fields: [departmentid], references: [departmentid])
   departmentid  Int?
   isactive  Boolean
-  lastlogin DateTime
+  lastlogin DateTime?
   passwordreset  String?  @unique
   passwordresetexpire DateTime?
   roles        roles?     @relation(fields: [roleid], references: [id])

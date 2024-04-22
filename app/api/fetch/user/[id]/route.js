@@ -1,13 +1,12 @@
 "use server"
-import prisma from "../../../auth/[...nextauth]/lib/prisma"; // Assuming correct path
+import { getPrismaInstance, closePrismaInstance } from "../../../auth/[...nextauth]/lib/prisma"; // Assuming correct path
 import { NextResponse, NextRequest } from 'next/server';
 
 
 export async function GET(NextRequest) {
              const id = NextRequest.nextUrl.pathname.split('/').pop();    
- //console.log("token,,,",token)
-   //console.log("iddd..", NextRequest)
     try {
+       const prisma = getPrismaInstance();
         const userData = await prisma.users.findUnique({
       where: {
         userid:parseInt(id) // Assuming the ID is an integer
@@ -23,6 +22,8 @@ export async function GET(NextRequest) {
     } catch (error) {
         console.error(error);
     return NextResponse.json({ message: 'Error Fetching User Data ' });
-    }
+    }finally {
+    await closePrismaInstance();
+  }
   
 }

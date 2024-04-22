@@ -1,10 +1,11 @@
 "use server"
-import prisma from "../../auth/[...nextauth]/lib/prisma"; // Assuming correct path
+import { getPrismaInstance, closePrismaInstance } from "../../auth/[...nextauth]/lib/prisma"; // Assuming correct path
 import { NextResponse } from 'next/server';
 
 
 export async function GET(request) {
     try {
+        const prisma = getPrismaInstance();
         const roles = await prisma.roles.findMany({
           
         });
@@ -13,7 +14,9 @@ export async function GET(request) {
   return NextResponse.json(roles)
     } catch (error) {
         console.error(error);
-    return NextResponse.json({ message: 'Error Fetching Roles Data ' });
-    }
+    return NextResponse.json({ message: 'Error Fetching Role Data ' });
+    }finally {
+    await closePrismaInstance();
+  }
   
 }

@@ -37,7 +37,7 @@ body {
 
 .loginreset-password {
   margin-left: auto;
-  /* This will push the "Reset password" button to the right */
+  
 }
 .loginbutton-group{
   display: flex;
@@ -46,4 +46,362 @@ body {
 
 .staffdashmain{
   border: 1px solid white;
+}
+.centertext{
+  text-align: center;
+}
+.ideashow{
+  width: 60rem;
+  border: 1px solid white;
+}
+.ideacontainer{
+  margin-top: 2rem;
+  display: flex;
+    justify-content: center;
+    
+    align-items: center;
+    
+    height: 100vh;
+}
+
+.commentcontainer{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+    
+  border: 1px solid white;
+}
+.commentsubcontainer{
+  width: 75%;
+}
+.commentrenderer{
+display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+
+}
+.commentrenderersub{
+  max-height: 8rem;
+    overflow-y: auto;
+    
+    width: 75%;
+    margin-top: 20px;
+    list-style-type: none;
+    align-self: center;
+}
+li{
+  list-style-type: none;
+  border: 1px solid white;
+  margin-top: 0.5rem;
+}
+
+.reportmodalbody{
+  background-color: black;
+}
+/*Navbar styles             */
+.navbar {
+  background-color: #f8f9fa;
+  padding: 10px 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.navContainer {
+  display: flex;
+  justify-content: center;
+  
+}
+
+.navItem {
+  margin: 0 2rem;
+  text-decoration: none;
+  color: #333;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.buttonStyle {
+  display: inline-block;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: #333;
+  color: white;
+  text-decoration: none;
+  cursor: pointer;
+ 
+}
+
+/* sidebar */
+
+
+.form-container {
+      max-width: 40px;
+      /* Adjust the maximum width as needed */
+      margin: 0 auto;
+      /* Center the form horizontally */
+      padding: 20px;
+      /* Add padding for spacing */
+    }
+
+.categories-table {
+  max-width: 800px;
+  /* Adjust the maximum width as needed */
+  margin: 0 auto;
+  /* Center the table horizontally */
+}
+.qamanager-children{
+  max-width: 50rem;
+  margin: 0 auto;
+}
+.admin-children {
+  max-width: 50rem;
+  margin: 0 auto;
+}
+.departmentcoordinator-children{
+  max-width: 50rem;
+    margin: 0 auto;
+}
+.idea-container {
+  border: 1px solid #ddd;
+  padding: 0.7rem;
+  margin-bottom: 1rem;
+  flex-direction: column;
+}
+
+/*Staff Navbar  */
+
+.staffnavbar {
+  background: #333;
+  color: white;
+  padding: 1em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.staffnavContainer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.staffnavItem {
+  color: white;
+  text-decoration: none;
+  margin-right: 1em;
+}
+
+.staffhamburger {
+  display: none;
+
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.staffhamburger div {
+  width: 25px;
+  height: 3px;
+  background: white;
+  margin: 2px 0;
+}
+
+
+@media (max-width: 768px) {
+  .staffnavContainer {
+    display: none;
+   
+  }
+
+  .staffhamburger {
+    display: flex;
+   
+  }
+
+  .staffnavContainer.open {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    width: 100%;
+    
+  }
+
+  .staffnavItem {
+    margin: 0.5em 0;
+  }
+}
+
+/*Staff ideas containers */
+.staffideasContainer {
+  padding: 1em;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  
+}
+.staffidea{
+  border: 1px solid #ddd;
+  padding: 1em;
+  margin: 1em 0;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 600px;
+}
+
+@media (min-width: 768px) {
+  .staffideasContainer{
+    justify-content: center;
+  }
+
+  .staffidea {
+    width: 80%;
+  }
+}
+
+/*changer password  */
+.changepasswordcontainer{
+  width: 60%;
+  padding: 1rem;
+
+}
+.tablegeneric  {
+    width: 60%;
+    padding: 1rem;
+
+  }
+  .tabledata{
+    width: 90%;
+      padding: 1rem;
+  }
+
+
+/*  sidebar 2 */
+.sidebar {
+  background: #333;
+  /* Dark background */
+  color: white;
+  /* White text */
+  position: fixed;
+  /* Fixed position */
+  top: 0;
+  /* Align at the top */
+  left: 0;
+  /* Align at the left */
+  height: 100vh;
+  /* Full height */
+  width: 250px;
+  /* Width of the sidebar */
+  padding-top: 1em;
+  /* Padding at the top */
+  z-index: 100;
+  /* Ensure it stays on top */
+}
+
+/* Sidebar navigation */
+.sidebar-nav {
+  list-style: none;
+  /* No list styling */
+  padding: 0;
+  /* Reset padding */
+  margin: 0;
+  /* Reset margin */
+}
+
+/* Sidebar links */
+.sidebar-link {
+  color: white;
+  /* White text */
+  text-decoration: none;
+  /* No underline */
+  padding: 0.5em;
+  /* Padding around links */
+  display: block;
+  /* Block-level elements */
+}
+
+/* Toggle button for smaller screens */
+.toggle-button {
+  background: yellow;
+  /* Bright background for visibility */
+  border: none;
+  /* No border */
+  color: white;
+  /* White text */
+  font-size: 2em;
+  /* Larger font size */
+  cursor: pointer;
+  /* Pointer cursor */
+  padding: 0.5em;
+  /* Padding for larger clickable area */
+}
+
+/* Media query for smaller screens (turns into a dropdown navbar) */
+@media (max-width: 768px) {
+
+  /* Change the sidebar to relative position */
+  .sidebar {
+    position: relative;
+    height: auto;
+    /* Reset height for smaller screens */
+    width: 100%;
+    /* Full width */
+    padding-top: 0;
+    /* Reset padding */
+  }
+
+  /* Initially hide the sidebar navigation on smaller screens */
+  .sidebar-nav {
+    display: none;
+    flex-direction: column;
+    /* Align in one column */
+  }
+
+  /* Display the sidebar navigation when open */
+  .sidebar-nav.open {
+    display: flex;
+  }
+
+  /* Update toggle button position */
+  .toggle-button {
+    position: absolute;
+    /* Absolute position for the toggle button */
+    top: 1em;
+    /* Align at the top */
+    right: 1em;
+    /* Align at the right */
+  }
+
+  /* Update sidebar links for smaller screens */
+  .sidebar-link {
+    padding: 0.5em;
+    /* Adjust padding */
+  }
+}
+
+.pageContainer {
+  display: flex;
+  /* Flex layout to align sidebar and content */
+}
+
+/* Content container for body content */
+.contentContainer {
+  padding: 1em;
+  /* Padding for body content */
+  flex: 1;
+  /* Allow the content to expand */
+  margin-left: 250px;
+  /* Account for the sidebar width */
+}
+
+/* Media query for smaller screens */
+@media (max-width: 768px) {
+
+  /* Adjust content when sidebar is not fixed */
+  .contentContainer {
+    margin-left: 0;
+    /* Reset margin */
+  }
 }

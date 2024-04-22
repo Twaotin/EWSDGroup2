@@ -1,9 +1,10 @@
 import {  NextResponse } from "next/server";
 import bcrypt from "bcrypt"; 
-import prisma from "../../auth/[...nextauth]/lib/prisma"
+import { getPrismaInstance, closePrismaInstance } from "../../auth/[...nextauth]/lib/prisma"
 import { getServerSession } from "next-auth/next"
 import { authOptions } from "../../auth/[...nextauth]/options"
 export async function PATCH(request) {
+  const prisma = getPrismaInstance();
      const session = await getServerSession(authOptions)
     try {
         
@@ -25,7 +26,9 @@ export async function PATCH(request) {
     } catch (error) {
         console.log(error)
         return NextResponse.json({ message: 'Error processing request' });
-    }
+    }finally {
+    await closePrismaInstance();
+  }
    
 
     

@@ -1,4 +1,4 @@
-import prisma from "./lib/prisma";
+import { getPrismaInstance, closePrismaInstance } from "./lib/prisma";
 
 import bcrypt from "bcrypt"; // Import bcrypt for password comparison
 const NextAuth = require('next-auth');
@@ -23,6 +23,7 @@ export const authOptions = {
       },
       async authorize(credentials) {
         try {
+           const prisma = getPrismaInstance();
             const { email, password } = credentials;
     const usery = prisma.users.findUnique({
   select: {
@@ -92,7 +93,9 @@ const user = await prisma.users.findUnique({
                             }
         } catch (error) {
           console.log(error);
-        }
+        }finally {
+     await closePrismaInstance();
+  }
         return null;
       },
     }),

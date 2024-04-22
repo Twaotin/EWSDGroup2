@@ -1,30 +1,28 @@
 import { getServerSession } from "next-auth/next"
 import { authOptions } from "../../auth/[...nextauth]/options"
-import prisma from "../../auth/[...nextauth]/lib/prisma"
+import { getPrismaInstance, closePrismaInstance } from "../../auth/[...nextauth]/lib/prisma"
 import {  NextResponse } from "next/server";
 import { sendCommentNotification} from '../../../../app/node';
 export async function POST(request) {
   const session = await getServerSession(authOptions)
   try {
-   
-      // File upload requested, generate pre-signed URL
+       const prisma = getPrismaInstance();
+ 
         const formData = await request.json() 
         console.log(formData.ideaid)
-       // const isAnonymous = formData.isanonymous === 'false' ? false : true;
+      
         const commentData = {
-  //userid: session.user.userId,
-  //ideaid: 2, 
   commenttext : formData.commenttext,
   commentdate: new Date(),
   isanonymous: formData.isanonymous ,
   idea: {
-    connect: { ideaid: formData.ideaid}, // Connect to existing idea with ID 2
+    connect: { ideaid: formData.ideaid}, 
   },
    user: {
-    connect: { userid: session.user.userId}, // Connect to existing idea with ID 2
+    connect: { userid: session.user.userId}, 
   },
 
-  // ... other idea data (potentially including file ID or reference)
+  
 };
  const id = {
   ideaid: formData.ideaid
@@ -40,6 +38,8 @@ await sendCommentNotification(commentData, id);
    }catch (error) {
     console.error(error);
     return NextResponse.json({ message: 'Error processing request' });
+  }finally {
+    await closePrismaInstance();
   }
 
 }

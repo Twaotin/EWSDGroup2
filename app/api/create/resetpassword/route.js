@@ -1,10 +1,11 @@
 
-import prisma from "../../auth/[...nextauth]/lib/prisma"
+import { getPrismaInstance, closePrismaInstance } from "../../auth/[...nextauth]/lib/prisma"
 import {  NextResponse } from "next/server";
 import { v4 as uuidv4 } from 'uuid'
 import { passwordresetemail} from '../../../node';
 export async function POST(request) {
   try {
+    const prisma = getPrismaInstance();
       const data = await request.json();
       console.log(data)
       const user = prisma.users.findUnique({
@@ -31,6 +32,8 @@ const email = data.email
 
     } catch (error) {
         return NextResponse.json({ message: 'Error processing request' });
-    }
+    }finally {
+    await closePrismaInstance();
+  }
   
 }

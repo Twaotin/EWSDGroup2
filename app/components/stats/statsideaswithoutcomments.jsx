@@ -1,3 +1,4 @@
+
 import { Pie } from 'react-chartjs-2';
 import {Chart as ChartJS,
   ArcElement,
@@ -15,11 +16,10 @@ ArcElement,
 import useSWR from 'swr';
 
 const  IdeawithoutChart = () => {
+const fetcher = (url) => fetch(url).then((res) => res.json());
 
-     const fetcher = (url) => fetch(url).then((res) => res.json());
-
-  const { data: ideasWithoutCommentsResults, error:ideasWithoutCommentsResultsError  } = useSWR('http://localhost:3000/api/fetch/stats/ideaswithoutcomments', fetcher, { refreshInterval: 1000 });
-   const { data: ideasWithCommentsResults, error: ideasWithCommentsResultsError } = useSWR('http://localhost:3000/api/fetch/stats/ideaswithcomments', fetcher, { refreshInterval: 1000 });
+  const { data: ideasWithoutCommentsResults, error:ideasWithoutCommentsResultsError  } = useSWR('http://localhost:3000/api/fetch/stats/ideaswithoutcomments', fetcher, { refreshInterval: 4000 });
+   const { data: ideasWithCommentsResults, error: ideasWithCommentsResultsError } = useSWR('http://localhost:3000/api/fetch/stats/ideaswithcomments', fetcher, { refreshInterval: 4000 });
 
   if (ideasWithoutCommentsResultsError) return <div>Error loading data</div>;
   if (!ideasWithoutCommentsResults) return <div>Loading...</div>;
@@ -35,7 +35,7 @@ const  IdeawithoutChart = () => {
     labels: ['Ideas with Comments', 'Ideas without Comments'],
     datasets: [
       {
-        label: 'Idea Comments',
+        label: 'Ideas With and without comments ',
         data: [countWithComments, countWithoutComments],
         backgroundColor: ['rgba(75, 192, 192, 0.2)', 'rgba(255, 99, 132, 0.2)'],
         borderColor: 'rgba(75, 192, 192, 1)',
@@ -51,7 +51,7 @@ const  IdeawithoutChart = () => {
         beginAtZero: true,
         title: {
           display: true,
-          text: 'Number of Ideas',
+          text: ' Ideas With and without comments ',
         },
       },
     },
@@ -59,7 +59,7 @@ const  IdeawithoutChart = () => {
 
   return (
     <div >
-      <h2>Ideas without a comment</h2>
+      <h2>Ideas With and without comments</h2>
       <Pie data={chartData} options={chartOptions}   />
     </div>
   );

@@ -33,51 +33,7 @@ const ViewedIdeas = () => {
   }, [ideas]);
   // Fetch view counts for each idea
   
-  const handleThumbsUp = async (idea) => {
-     try {
-      
-      // Optimistically update the UI
-      // No need to call setIdeas since SWR will automatically revalidate the data
-      const response = await fetch(`http://localhost:3000/api/thumbs/thumbup`, {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ isthumbsup: idea.isthumbsup + 1, ideaid: idea.ideaid })
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to update thumbs up count');
-      }
-    } catch (error) {
-      console.error('Error updating thumbs up count:', error.message);
-    }
-  };
-
-  const handleThumbsDown = async (idea) => {
-     try {
-    
-   
-    // Send a request to the server to update the thumbs down count in the database
-    const response = await fetch(`http://localhost:3000/api/thumbs/thumbdown`, {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ isthumbsdown: idea.isthumbsdown + 1, ideaid: idea.ideaid }) 
-    });
-
-    const responseData = await response.json();
-    //console.log(responseData);
-
-    if (!response.ok) {
-      throw new Error('Failed to update thumbs down count');
-    }
-  } catch (error) {
-    console.error('Error updating thumbs down count:', error.message);
-  }
-  };
-
+ 
   // Sorting function based on count
   
 

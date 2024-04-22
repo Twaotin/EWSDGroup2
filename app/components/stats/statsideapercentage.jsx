@@ -49,7 +49,7 @@ const  IdeapercentageChart = () => {
         beginAtZero: true,
         title: {
           display: true,
-          text: 'Number of Ideas',
+          text: 'Percentage of Ideas by Each Department',
         },
       },
     },

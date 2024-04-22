@@ -1,4 +1,4 @@
-import prisma from "../../auth/[...nextauth]/lib/prisma"
+import { getPrismaInstance, closePrismaInstance } from "../../auth/[...nextauth]/lib/prisma"
 import {  NextResponse } from "next/server";
 import { getServerSession } from "next-auth/next"
 import { authOptions } from "../../auth/[...nextauth]/options"
@@ -9,6 +9,7 @@ export async function POST(request) {
       
  
    try { 
+    const prisma = getPrismaInstance();
           const existingView = await prisma.ideathumbdown.findFirst({
             where: {
                 ideaid: parseInt(data.ideaid),
@@ -27,15 +28,19 @@ export async function POST(request) {
             await prisma.ideathumbdown.create({
                 data: thumbup
             });
+            return NextResponse.json({ message: ' successfully idea thumbsdown!' });
           }
    
 
   // Send a success response
-  return NextResponse.json({ message: ' successfully idea thumbsdown!' });
+  
 } catch (error) {
   // Handle errors
   console.error('Error updating thumbs down count:', error.message);
   return res.status(500).json({ message: 'Internal Server Error' });
-}
+}finally {
+    await closePrismaInstance();
+  }
+
 
 }

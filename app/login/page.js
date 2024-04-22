@@ -44,12 +44,12 @@ const [success, setSuccess] = useState(null);
     <> 
     <div className="loginform">
       <div className="loginforminner">
-            {error && ( // Display login error below email field
+            {error && ( 
             <Alert variant="danger">
               {error === 'CredentialsSignin' ? 'Invalid email or password' : error}
             </Alert>
           )}
-           {success && ( // Display success message below email field
+           {success && ( 
             <Alert variant="success">
               {success}
             </Alert>

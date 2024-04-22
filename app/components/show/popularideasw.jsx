@@ -1,5 +1,6 @@
+"use client"
 import React, { useState, useEffect } from 'react';
-import useSWR, { mutate } from 'swr';
+//import useSWR, { mutate } from 'swr';
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 
@@ -81,7 +82,7 @@ const [thumbsDownCounts, setThumbsDownCounts] = useState({});
     }));
 
     // Trigger re-render with updated thumbs up count
-    mutate('localhost:3000/api/fetch/thumbup');
+    //mutate('localhost:3000/api/fetch/thumbup');
     } catch (error) {
       console.error('Error updating thumbs up count:', error.message);
     }
@@ -101,7 +102,7 @@ const [thumbsDownCounts, setThumbsDownCounts] = useState({});
       if (!response.ok) {
         throw new Error(responseData.message || 'Failed to update thumbs down count');
       }
-       mutate('http://localhost:3000/api/thumbs/thumbdown');
+       //mutate('http://localhost:3000/api/thumbs/thumbdown');
     } catch (error) {
       console.error('Error updating thumbs down count:', error.message);
     }

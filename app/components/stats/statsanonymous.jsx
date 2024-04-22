@@ -1,3 +1,4 @@
+
 import { Bar } from 'react-chartjs-2';
 import {Chart as ChartJS,
   CategoryScale,
@@ -20,7 +21,7 @@ import {Chart as ChartJS,
 import useSWR from 'swr';
 
 const AnonymousChart = () => {
-           const fetcher = (url) => fetch(url).then((res) => res.json());
+ const fetcher = (url) => fetch(url).then((res) => res.json());
     const { data: anonymousCommentsResults, error:anonymousCommentsResultsError  } = useSWR('http://localhost:3000/api/fetch/stats/ideaswithoutcomments', fetcher, { refreshInterval: 1000 });
    const { data: anonymousIdeasResults, error: anonymousIdeasResultsError } = useSWR('http://localhost:3000/api/fetch/stats/ideaswithcomments', fetcher, { refreshInterval: 1000 });
 
@@ -28,8 +29,9 @@ const AnonymousChart = () => {
   if (!anonymousCommentsResults) return <div>Loading...</div>;
 
     if (anonymousIdeasResultsError) return <div>Error loading data</div>;
-  if (!anonymousIdeasResults) return <div>Loading...</div>;
+  if (!anonymousIdeasResults) return <div>Loading...</div>
 
+console.log(anonymousCommentsResults)  
   const  countAnonymousComments = anonymousCommentsResults.length;
   const countAnonymousIdeas = anonymousIdeasResults.length;
 
@@ -37,7 +39,7 @@ const AnonymousChart = () => {
     labels: ['Anonymous Comments', 'Anonymous Ideas'],
     datasets: [
       {
-        label: 'Anonymous Stats',
+        label: 'Anonymous Comments',
         data: [ countAnonymousComments, countAnonymousIdeas],
         backgroundColor: ['rgba(75, 192, 192, 0.2)', 'rgba(255, 99, 132, 0.2)'],
         borderColor: 'rgba(75, 192, 192, 1)',
@@ -53,7 +55,7 @@ const AnonymousChart = () => {
         beginAtZero: true,
         title: {
           display: true,
-          text: 'Number of Ideas',
+          text: 'Anonymous Ideas and Anonymous Comments',
         },
       },
     },
@@ -61,7 +63,7 @@ const AnonymousChart = () => {
 
    return (
     <div >
-      <h2>Ideas Made by Each Department</h2>
+      <h2>Anonymous Ideas and Comments </h2>
       <Bar data={chartData} options={chartOptions}   />
     </div>
   );

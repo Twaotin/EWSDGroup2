@@ -1,27 +1,29 @@
 'use client'
 import React, { useState } from 'react';
-
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
+import Alert from 'react-bootstrap/Alert';
+import Link from 'next/link';
 const Reset = () => {
   const [email, setEmail] = useState('');
   const [errors, setErrors] = useState({});
+  const [message, setMessage] = useState('');
 
-  const handleChange = (event) => {
+  const handleEmailChange = (event) => {
     setEmail(event.target.value);
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
+    
     const validationErrors = {};
     let isValid = true;
 
     if (!email.trim()) {
       validationErrors.email = 'Email is required';
       isValid = false;
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      validationErrors.email = 'Invalid email address';
-      isValid = false;
-    }
+    } 
 
     setErrors(validationErrors);
 
@@ -33,36 +35,45 @@ const Reset = () => {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({ email }),
-        }); 
-          const responseData = await response.json();
-          console.log(responseData)
-        if (!response.ok) {
-          throw new Error('There was an error sending the reset password email.');
-        }
+        });
 
-        console.log('Success! Reset email sent.');
+        if (response.ok) {
+          const responseData = await response.json();
+          setMessage(responseData.message || 'Success! A password reset email has been sent.');
+           const timeout = setTimeout(() => setMessage(''), 3000);
+           return () => clearTimeout(timeout);
+        } else {
+          throw new Error('Error sending reset password email.');
+        }
       } catch (error) {
-        console.error('Error submitting comment:', error.message);
+        setMessage(`Error: ${error.message}`);
       }
     }
   };
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="email">Email Address:</label>
-          <input
+    <div className="loginform">
+      <div className="loginforminner">
+        <h3>Reset Password</h3>
+      {message && <Alert variant={message.startsWith('Error') ? 'danger' : 'success'}>{message}</Alert>}
+      <Form onSubmit={handleSubmit}>
+        <Form.Group controlId="formEmail">
+          <Form.Label>Email Address</Form.Label>
+          <Form.Control
             type="email"
             name="email"
-            id="email"
             value={email}
-            onChange={handleChange}
+            onChange={handleEmailChange}
+            isInvalid={!!errors.email}
           />
-          {errors.email && <p className="error">{errors.email}</p>}
-        </div>
-        <button type="submit">Submit</button>
-      </form>
+          <Form.Control.Feedback type="invalid">{errors.email}</Form.Control.Feedback>
+        </Form.Group>
+        <Button type="submit" variant="primary">Submit</Button>
+      </Form>
+      <Link href="http://localhost:3000/login" className="staffnavItem">Back</Link>
+      </div>
+    </div>
     </>
   );
 };

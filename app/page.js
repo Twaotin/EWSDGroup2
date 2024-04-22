@@ -2,9 +2,10 @@ import {authOptions} from "../app/api/auth/[...nextauth]/options"
 import Link from "next/link";
 import { redirect } from 'next/navigation'
 import { getServerSession } from "next-auth";
-import prisma from "./api/auth/[...nextauth]/lib/prisma";
+import { getPrismaInstance, closePrismaInstance } from "./api/auth/[...nextauth]/lib/prisma";
 
 export default async function Home() {
+  const prisma = getPrismaInstance();
    const session = await getServerSession(authOptions);
    console.log("session in home page ",session)
   // console.log("session  user check in home page ",session.user.role)
@@ -16,6 +17,16 @@ if(session.user.role == "staff") {
   redirect("/staff")
 }
 
+if(session.user.role == "Admin") {
+  redirect("/admin")
+}
+
+if(session.user.role == "QA Manager") {
+  redirect("/qamanager")
+}
+if(session.user.role == "QADeptment Coordinator") {
+  redirect("/departmentcoordinator")
+}
 
 //	Anonymous ideas and comments.
 const anonymousData = await prisma.ideas.findMany({

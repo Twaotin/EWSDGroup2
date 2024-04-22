@@ -2,14 +2,14 @@ import {  NextResponse } from "next/server";
 import { getServerSession } from "next-auth/next"
 
 import { authOptions } from "../../auth/[...nextauth]/options"
-import prisma from "../../auth/[...nextauth]/lib/prisma"
+import { getPrismaInstance, closePrismaInstance } from "../../auth/[...nextauth]/lib/prisma"
 import { sendIdeaSubmissionNotification } from '../../../../app/node';
 export async function POST(request) {
   const session = await getServerSession(authOptions)
   try {
    
-     
-        const formData =  await request.json()
+        const prisma = getPrismaInstance();
+         const formData =  await request.json()
         const Anonymous = formData.isanonymous;
         const isAnonymous = JSON.parse(Anonymous); 
      
@@ -71,6 +71,8 @@ const newIdeaWithCategory = await prisma.ideas.create({
    }catch (error) {
     console.error(error);
     return NextResponse.json({ message: 'Error processing request' });
+  }finally {
+    await closePrismaInstance();
   }
 
 }

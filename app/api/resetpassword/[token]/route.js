@@ -3,7 +3,7 @@ import bcrypt from "bcrypt";
 import { passwordreset} from '../../../node';
 import { NextResponse, NextRequest } from 'next/server';
 
-import prisma from "../../auth/[...nextauth]/lib/prisma"
+import { getPrismaInstance, closePrismaInstance } from "../../auth/[...nextauth]/lib/prisma"
 function passwordgenerate() {
   // Define magic 8-ball responses
   const array = [
@@ -48,13 +48,9 @@ function passwordgenerate() {
 
 export async function GET(NextRequest) {
     try {
-      
+      const prisma = getPrismaInstance();
        const token = NextRequest.nextUrl.pathname.split('/').pop();    
- console.log("token,,,",token)
-      
-      
-      
- console.log(token)
+ 
 const user = await prisma.users.findFirst({
   where: {
     AND: [
@@ -64,8 +60,7 @@ const user = await prisma.users.findFirst({
   },
 });
 
-console.log("useerr", user);
-console.log(user.userid)
+
 if( user) {
        
     const newpassword = passwordgenerate();
@@ -80,14 +75,14 @@ if( user) {
 })
     await passwordreset(user.email, newpassword);
 
-   return NextResponse.json({ message: 'Your new password has been sent to your email' })
-}else{
-    return NextResponse.json({ message: 'Your new password has been sent to your email' })
+    return NextResponse.redirect(new URL('/login', NextRequest.url));
 }
     } catch (error) {
       console.log(error)
          return NextResponse.json({ message: 'Error reset request' }, error);
          
-    }
+    }finally {
+    await closePrismaInstance();
+  }
   
 }

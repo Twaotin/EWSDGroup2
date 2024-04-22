@@ -1,9 +1,16 @@
  "use server"
-import prisma from "../../auth/[...nextauth]/lib/prisma";  
+import { getPrismaInstance, closePrismaInstance } from "../../auth/[...nextauth]/lib/prisma";  
 import {  NextResponse } from "next/server"
 
 export async function GET(request) {
+  try {
+     const prisma = getPrismaInstance();
      const ideas = await prisma.ideas.findMany({
+  where: {
+    user: { 
+      isactive: true, 
+    },
+  },
   include: {
     user: true,
     ideacategories: {
@@ -38,6 +45,11 @@ export async function GET(request) {
   });
   console.log(ideas)
     return NextResponse.json(ideas);
+  } catch (error) {
+    return NextResponse.json({ message: 'Error Fetching idea Data ' });
+  }finally {
+    await closePrismaInstance();
+  }
    
 }
 

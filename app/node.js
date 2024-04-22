@@ -1,5 +1,5 @@
 import nodemailer from 'nodemailer';
-import prisma from "./api/auth/[...nextauth]/lib/prisma";
+import { getPrismaInstance, closePrismaInstance }  from "./api/auth/[...nextauth]/lib/prisma";
 const email = process.env.EMAIL;
 const pass = process.env.EMAIL_PASS;
 
@@ -17,7 +17,8 @@ const transporter = nodemailer.createTransport({
   from: email,
   to: emailpassword,
     subject: 'Password Reset Request',
-     html: `   if you requested a password reset, click the link : <a href="${passwordlink}">Reset Password</a>`
+     html: ` click the link : <a href="${passwordlink}">Reset Password</a> Once you click, and are redirected 
+     to the login, check your mail box again, you new password will be sent`
 };
 
 try {
@@ -33,7 +34,7 @@ const  passwordreset = async (emailpassword, newpassword) => {
   from: email,
   to: emailpassword,
     subject: 'Your New Password',
-    text: `Your password has been reset. Here is your new password: <strong>${newpassword}</strong>. It is recommended to change this password after logging in.`
+    text: `Your password has been reset. Here is your new password: <strong>${newpassword}</strong>. .`
 };
 try {
     await transporter.sendMail(passwordreset);
@@ -45,8 +46,9 @@ try {
 }
 
 const sendIdeaSubmissionNotification = async (ideaData) => {
-  // Find QA Coordinator email based on DepartmentID
-  //const qaCoordinatorEmail = await findQACoordinatorEmail(ideaData.DepartmentID);
+ console.log(ideaData)
+ try {
+  const prisma = getPrismaInstance();
   const userEmail = await prisma.users.findFirst({
   where: {
     departmentid: { 
@@ -60,7 +62,6 @@ const sendIdeaSubmissionNotification = async (ideaData) => {
     email: true
   }
 });
-
 const emailString = userEmail.email;
 console.log(userEmail)
 
@@ -77,10 +78,19 @@ console.log(userEmail)
   } catch (error) {
     console.error('Error sending notification:', error);
   }
+ } catch (error) {
+  console.log(error)
+ }finally {
+    await closePrismaInstance();
+  }
+ 
+
+
 };
 
 const sendCommentNotification = async (commentData, id) => {
-
+  try {
+    const prisma = getPrismaInstance();
     const idea = await prisma.ideas.findFirst({
   where: {
     ideaid: id.ideaid,
@@ -98,9 +108,7 @@ const user = await prisma.users.findFirst({
   select: {
     email: true,
   },
-});
-
-const userEmail = user.email;
+}); const userEmail = user.email;
 console.log(userEmail)
   const mailOptions = {
     from: email,
@@ -115,6 +123,14 @@ console.log(userEmail)
   } catch (error) {
     console.error('Error sending notification:', error);
   }
+
+  } catch (error) {
+    console.log(error)
+  }finally {
+    await closePrismaInstance();
+  }
+
+
 };
 
 async function findQACoordinatorEmail(departmentId) {

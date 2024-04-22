@@ -1,8 +1,9 @@
 "use server"
-import prisma from "../../../auth/[...nextauth]/lib/prisma"; // Assuming correct path
+import { getPrismaInstance, closePrismaInstance } from "../../../auth/[...nextauth]/lib/prisma"; // Assuming correct path
 import { NextResponse, NextRequest } from 'next/server';
 
 export async function GET(NextRequest) {
+  const prisma = getPrismaInstance();
              const id = NextRequest.nextUrl.pathname.split('/').pop();    
  
     try {
@@ -16,6 +17,8 @@ export async function GET(NextRequest) {
     } catch (error) {
         console.error(error);
     return NextResponse.json({ message: 'Error Fetching User Data ' });
-    }
+    }finally {
+    await closePrismaInstance();
+  }
   
 }
