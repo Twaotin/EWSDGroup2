@@ -71,7 +71,9 @@ const ChangePassword = () => {
 
   return (
     <>  
-    <div className="changepasswordcontainer">
+      <div className="changepasswordcontainer">
+        <div className="changepasswordinnercontainer">
+          <h2>Change Password</h2>
       {message && <Alert variant="light">{message}</Alert>}
       <Form onSubmit={handleSubmit}>
         <Row>
@@ -107,7 +109,8 @@ const ChangePassword = () => {
            <Button variant="primary" type="submit">
         Submit
       </Button>
-    </Form>
+          </Form>
+          </div>
     </div>
     </>
   );

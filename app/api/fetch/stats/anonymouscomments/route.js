@@ -1,5 +1,5 @@
 "use server"
-import { getPrismaInstance, closePrismaInstance } from "../../../auth/[...nextauth]/lib/prisma"; // Assuming correct path
+import { getPrismaInstance, closePrismaInstance } from "../../../auth/[...nextauth]/lib/prisma";
 import { NextResponse } from 'next/server';
 
 

@@ -1,7 +1,7 @@
 "use client"
 import React, { useState, useEffect } from 'react';
 import { Form, FormGroup, FormLabel, FormControl, Button } from 'react-bootstrap';
-import { toast } from 'react-toastify';
+
 import Alert from 'react-bootstrap/Alert';
 export default function CreateIdea() {
   const [formData, setFormData] = useState({
@@ -14,8 +14,8 @@ export default function CreateIdea() {
 
   const [errors, setErrors] = useState({});
   const [categories, setCategories] = useState([]);
-  const [Success, setSuccess] = useState(false);
-  const [Failure, setFailure] = useState(false);
+  const [Success, setSuccess] = useState('');
+
   useEffect(() => {
     const fetchCategories = async () => {
       try {
@@ -75,8 +75,10 @@ export default function CreateIdea() {
           throw new Error("Form submission failed");
         }
            
-        setSuccess(true);
-        setFailure(false);
+        const responseData = await response.json();
+        
+        setSuccess(responseData.message);
+        const timeout = setTimeout(() => setSuccess(''), 3000);
         setFormData({
           ideaTitle: "",
           ideaText: "",
@@ -84,14 +86,14 @@ export default function CreateIdea() {
           isanonymous: false,
           agreedTCs: false,
         });
-
-        const responseData = await response.json();
-        
         setErrors({});
+        return () => clearTimeout(timeout);
+        
+        
+        
       } catch (error) {
         console.error("Error during form submission:", error);
-        setFailure(true);
-        setSuccess(false);
+       
       }
     } else {
       console.log("Form has errors:", newErrors);
@@ -102,20 +104,11 @@ export default function CreateIdea() {
     <>
     <div className="ideaform">
       <div className="ideaforminner">
-         {Success && ( 
-            <Alert variant="success">
-              Idea Created
-            </Alert>
-          )}
-
-      {Failure && ( 
-            <Alert variant="danger">
-              Failed to create idea 
-            </Alert>
-          )}
+         
+     
         <h2>Create Idea</h2>
 
-         
+        {Success && <Alert variant="light"> {Success}</Alert>}
     <Form onSubmit={handleRegistration}>
       <FormGroup>
         <FormLabel>Title</FormLabel>

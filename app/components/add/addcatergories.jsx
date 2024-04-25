@@ -45,7 +45,8 @@ const CategoryForm = () => {
 
   return (
     <>
-     <div className="">
+      <div className='tabledataextra'>
+        <h2>Add categories</h2>
       {Message && <Alert variant="light"> {Message}</Alert>}
       <Form onSubmit={handleSubmit}>
         <Row>

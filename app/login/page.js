@@ -24,7 +24,7 @@ const [success, setSuccess] = useState(null);
         setSuccess('Login successful'); 
         router.push(callbackUrl)
       } else {
-        setError(res.error) // Assuming you meant to set an error state here
+        setError(res.error) 
       }
     } catch (err) {
       setError(err.message || 'Unknown error')
@@ -54,7 +54,7 @@ const [success, setSuccess] = useState(null);
               {success}
             </Alert>
           )}
-       
+       <h2 >Login</h2>
        <Form onSubmit={handleSubmit(onSubmit)}>
       <FormGroup className="mb-3">
         <FormLabel>Email address</FormLabel>

@@ -18,15 +18,13 @@ export async function GET(request) {
         category: true,
       },
     },
-    ideadate: true, // Include the ideasdate relation
+    ideadate: true, 
   },
 });
   const closureDates = await prisma.ideadates.findMany();
 
-  // Get the current date
-   const currentDate = new Date();
+    const currentDate = new Date();
 
-  // Loop through ideas and update isenabled based on closure dates
   ideas.forEach(idea => {
     const closureDate = closureDates.find(date => date.closuredateid  === idea.closuredateid);
     console.log("closuredate...", closureDate)

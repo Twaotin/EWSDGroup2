@@ -1,5 +1,5 @@
 "use server"
-import { getPrismaInstance, closePrismaInstance } from "../../../auth/[...nextauth]/lib/prisma"; // Assuming correct path
+import { getPrismaInstance, closePrismaInstance } from "../../../auth/[...nextauth]/lib/prisma"; 
 import { NextResponse } from 'next/server';
 
 
@@ -11,12 +11,12 @@ const results = await prisma.departments.findMany({
   select: {
     departmentname: true,
     _count: {
-      select: { ideas: true }, // Counts ideas related to each department
+      select: { ideas: true }, 
     },
   },
 });
 
-// Iterate through department data and calculate percentages
+
 results.forEach((department) => {
   department.ideaPercentage = (department._count.ideas / totalIdeas) * 100;
 });

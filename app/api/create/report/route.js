@@ -14,7 +14,7 @@ const reportData = {
   reportsubject: formData.reportsubject,
   reviewstatus: "pending" ,
   reviewer: null,
- idea: { connect: { ideaid: formData.ideaid } }, // Connect to existing idea
+ idea: { connect: { ideaid: formData.ideaid } }, 
  user: { connect: { userid: session.user.userId } }, 
 };
 

@@ -23,7 +23,7 @@ const Popular = () => {
         data.sort((idea1, idea2) => idea2.thumbsUpCounts - idea1.thumbsUpCounts);
         setIdeas(data);
 
-        // Fetch thumbs up and down counts for all ideas (only on initial load)
+        
         const fetchThumbsData = async () => {
           const allThumbsUpCounts = {};
           const allThumbsDownCounts = {};
@@ -51,7 +51,7 @@ const Popular = () => {
     fetchData();
   }, []);
 
-  // Function to calculate the start and end index for current page
+  
   const getIndexOfIdeas = () => {
     const startIndex = (currentPage - 1) * ideasPerPage;
     const endIndex = Math.min(startIndex + ideasPerPage, ideas.length);
@@ -66,7 +66,7 @@ const Popular = () => {
     <div>
       {ideas.length > 0 ? (
         <>
-          {/* Display ideas based on pagination */}
+         
           {ideas.slice(getIndexOfIdeas().startIndex, getIndexOfIdeas().endIndex).map((idea, index) => (
             <div key={idea.ideaid}>
               <button type="button" onClick={() => router.push(`/api/idea/${idea.ideaid}`)}>
@@ -75,11 +75,11 @@ const Popular = () => {
               <h3>Idea Title: {idea.ideatitle}</h3>
               <div className="author">BY: {idea.user.username}</div>
                <div></div>
-              {/* Additional idea details (optional) */}
+              
             </div>
           ))}
 
-          {/* Pagination logic */}
+          
           <ul className="pagination">
             <li
               className={currentPage === 1 ? 'disabled' : ''}

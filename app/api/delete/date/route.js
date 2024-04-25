@@ -9,7 +9,7 @@ export async function POST(request) {
   console.log(formData.closuredateid)
  const deletedRow = await prisma.ideadates.delete({
       where: {
-        closuredateid: formData.closuredateid, // Assuming the primary key column name is 'id'
+        closuredateid: formData.closuredateid,
       },
     });
 

@@ -18,7 +18,7 @@ export async function POST(request) {
             } 
         });
             if(existingView) {
-              return NextResponse.json({ message: ' You have already given a thumbs up to this idea!' })
+              return NextResponse.json({ message: ' You have already given a thumb down to this idea!' })
             }else{
         const thumbup = {
 
@@ -32,10 +32,10 @@ export async function POST(request) {
           }
    
 
-  // Send a success response
+  
   
 } catch (error) {
-  // Handle errors
+ 
   console.error('Error updating thumbs down count:', error.message);
   return res.status(500).json({ message: 'Internal Server Error' });
 }finally {

@@ -8,6 +8,7 @@ export async function POST(request) {
 
 const dateData = {
   academicyear: formData.academicyear,
+  opendate: formData.opendate,
   closuredate: formData.closuredate,
   finalclosuredate : formData.finalclosuredate
 };

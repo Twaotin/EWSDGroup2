@@ -24,13 +24,13 @@ const ViewedIdeas = () => {
 
   useEffect(() => {
     if (ideas) {
-      // Fetch view counts for each idea on the client-side
+      
       const fetchAndSortIdeas = async () => {
         const updatedIdeas = await Promise.all(
           ideas.map(async (idea) => {
             const response = await fetch(`http://localhost:3000/api/fetch/views/${idea.ideaid}`);
             const viewCounts = await response.json();
-            return { ...idea, count: viewCounts[0]?._count || 0 }; // Add count property to each idea
+            return { ...idea, count: viewCounts[0]?._count || 0 }; 
           })
         );
         setSortedIdeas(updatedIdeas.sort((a, b) => b.count - a.count));
@@ -50,17 +50,23 @@ const ViewedIdeas = () => {
 
   return (
     <div className="staffideasContainer">
-      {sortedIdeas.slice(indexOfFirstIdea, indexOfLastIdea).map((idea) => (
+      
+      {sortedIdeas.length > 0 ? (
+      sortedIdeas.slice(indexOfFirstIdea, indexOfLastIdea).map((idea) => (
         <div key={idea.ideaid} className="staffidea">
           <div>
          <h5>Idea Title: {idea.ideatitle}</h5>
-           {idea.isanonymous ? <h5>By: Anonymous </h5> :  <h5> By:{idea.user.username}</h5>} 
-          <h5>Views: {idea.count}</h5>
+           <h5> By:{idea.user.username}</h5>
+            <h5>Views: {idea.count}</h5>
+            {idea.isclosure && <h5>Closure date reached </h5> }
           <Link href={`/admin/idea/${idea.ideaid}`} className=" buttonStyle">View</Link>
           </div>
         </div>
-      ))}
-      {/* Pagination */}
+      ))
+      ) : (
+        <h2>No ideas found</h2> 
+      )}
+      
       <Pagination>
         {Array.from({ length: Math.ceil(sortedIdeas.length / ideasPerPage) }, (_, index) => (
           <Pagination.Item key={index + 1} active={index + 1 === currentPage} onClick={() => paginate(index + 1)}>
@@ -68,8 +74,42 @@ const ViewedIdeas = () => {
           </Pagination.Item>
         ))}
       </Pagination>
+     
+     
     </div>
   );
 };
 
 export default ViewedIdeas;
+
+<div className="staffideasContainer">
+      {ideas.length > 0 ? (
+        <>
+         
+          {ideas.slice(getIndexOfIdeas().startIndex, getIndexOfIdeas().endIndex).map((idea, index) => (
+            <div key={idea.ideaid} className="staffidea">
+              <div >
+              <h5>Idea Title: {idea.ideatitle}</h5>
+              {idea.isanonymous ? <h5>By: Anonymous </h5> :  <h5> By:{idea.user.username}</h5>} 
+              <Link href={`/admin/idea/${idea.ideaid}`} className="buttonStyle">View</Link>
+              </div>
+            </div>
+          ))}
+
+          
+          <Pagination>
+            {Array.from({ length: Math.ceil(ideas.length / ideasPerPage) }, (_, index) => (
+              <Pagination.Item
+                key={index + 1}
+                active={index + 1 === currentPage}
+                onClick={() => paginate(index + 1)}
+              >
+                {index + 1}
+              </Pagination.Item>
+            ))}
+          </Pagination>
+        </>
+      ) : (
+        <p>No ideas found.</p>
+      )}
+    </div>

@@ -133,6 +133,7 @@ model ideathumbdown {
 model ideadates {
   closuredateid   Int       @id @default(autoincrement()) // Primary key
   academicyear    String
+  opendate        DateTime
   closuredate     DateTime
   finalclosuredate DateTime
 

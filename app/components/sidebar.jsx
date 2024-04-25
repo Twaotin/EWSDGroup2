@@ -16,7 +16,7 @@ function Navbarstaff() {
         <div></div>
         <div></div>
       </div>
-      <div className={`staffnavContainer ${isMenuOpen ? 'open' : ''}`}> {/* Removed 'hidden' */}
+      <div className={`staffnavContainer ${isMenuOpen ? 'open' : ''}`}> 
         <Link href="/staff" className="staffnavItem">Home</Link>
         <Link href="/staff/createidea" className="staffnavItem">Create Idea</Link>
         <Link href="/staff/staffpopularideas" className="staffnavItem">Popular Ideas</Link>

@@ -5,8 +5,7 @@ import Loading from "../loading"
 export default function page() {
   return (
     <>
-    
-
+  
     <div>
       <h3>Latest Ideas</h3>
       <p>Current Latest ideas</p>

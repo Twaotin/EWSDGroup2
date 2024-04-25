@@ -1,5 +1,5 @@
 "use server"
-import { getPrismaInstance, closePrismaInstance } from "../../../auth/[...nextauth]/lib/prisma"; // Assuming correct path
+import { getPrismaInstance, closePrismaInstance } from "../../../auth/[...nextauth]/lib/prisma";
 import { NextResponse, NextRequest } from 'next/server';
 
 
@@ -12,7 +12,7 @@ export async function GET(NextRequest) {
        const viewCounts =  await prisma.ideaviews.groupBy({
             by: ['ideaid'],
              where: {
-               ideaid: parseInt(id), // Filter by the specific ideaid
+               ideaid: parseInt(id), 
                 },
              _count: true,
                   }); 

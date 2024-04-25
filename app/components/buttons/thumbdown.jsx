@@ -1,6 +1,8 @@
 "use client"
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
+import Button from 'react-bootstrap/Button';
+import Alert from 'react-bootstrap/Alert';
 const Thumbdown = ({ id }) => {
  const router = useRouter();
 const [Message, setMessage] = useState('');
@@ -37,10 +39,15 @@ const response = await fetch(`http://localhost:3000/api/thumbs/thumbdown`, {
   }
 
 }
-return (
-    <button type="button"  onClick={handlethumbup}>
-      thumbdown {Message && <p>{Message}</p>}
-    </button>
+  return (
+  <>
+      
+      <Button type="button"  onClick={handlethumbup}>
+      thumbdown 
+      </Button>
+      {Message && <Alert variant="light"> {Message}</Alert>}
+  </>
+    
   );
 }
 export default Thumbdown  ;

@@ -23,7 +23,7 @@ const Popular = () => {
         data.sort((idea1, idea2) => idea2.thumbsUpCounts - idea1.thumbsUpCounts);
         setIdeas(data);
 
-        // Fetch thumbs up and down counts for all ideas (only on initial load)
+        
         const fetchThumbsData = async () => {
           const allThumbsUpCounts = {};
           
@@ -46,7 +46,7 @@ const Popular = () => {
     fetchData();
   }, []);
 
-  // Calculate start and end index of ideas to display based on current page
+  
   const getIndexOfIdeas = () => {
     const indexOfLastIdea = currentPage * ideasPerPage;
     const indexOfFirstIdea = indexOfLastIdea - ideasPerPage;
@@ -65,7 +65,8 @@ const Popular = () => {
             <div key={idea.ideaid} className="staffidea">
               <div >
               <h5>Idea Title: {idea.ideatitle}</h5>
-              {idea.isanonymous ? <h5>By: Anonymous </h5> :  <h5> By:{idea.user.username}</h5>} 
+                <h5> By:{idea.user.username}</h5>
+                {idea.isclosure && <h5>Closure date reached </h5> }
               <Link href={`/admin/idea/${idea.ideaid}`} className="buttonStyle">View</Link>
               </div>
             </div>

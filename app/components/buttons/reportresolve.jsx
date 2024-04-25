@@ -1,6 +1,6 @@
 "use client"
 import { useState } from 'react';
-
+import Button from 'react-bootstrap/Button';
 const Editreport = ({ reportid }) => {
 
 
@@ -27,9 +27,9 @@ const response = await fetch("http://localhost:3000/api/edit/report", {
 
 }
 return (
-    <button type="button"  onClick={handleDelete}>
+    <Button type="button"  onClick={handleDelete}>
       Resolve 
-    </button>
+    </Button>
   );
 }
 export default Editreport;

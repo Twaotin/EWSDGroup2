@@ -43,6 +43,11 @@ const Sidebar = () => {
           </Link>
         </li>
         <li>
+          <Link href="/qamanager/dates" className="sidebar-link">
+             Dates
+          </Link>
+        </li>
+        <li>
           <Link href="/api/auth/signout?callbackUrl=/" className="sidebar-link">Logout</Link>
         </li>
       </ul>

@@ -8,7 +8,7 @@ export async function POST(request) {
   console.log(Data.categoryid)
  const deletedRow = await prisma.categories.delete({
       where: {
-        categoryid: Data.categoryid, // Assuming the primary key column name is 'id'
+        categoryid: Data.categoryid, 
       },
     });
     

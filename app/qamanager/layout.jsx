@@ -3,8 +3,10 @@ import Sidebar from "../components/utils/qamanagersidebar"
 export default function layout({ children }) {
   return (
     <>
-    <Sidebar />
-    <div className='qamanager-children'>
+    <div className="pageContainer">
+        <Sidebar />
+         </div>
+    <div className="contentContainer">
         {children}
     </div>
     </>

@@ -5,7 +5,7 @@ import { NextResponse, NextRequest } from 'next/server';
 
 import { getPrismaInstance, closePrismaInstance } from "../../auth/[...nextauth]/lib/prisma"
 function passwordgenerate() {
-  // Define magic 8-ball responses
+ 
   const array = [
     "It is certain.",
     "It is decidedly so.",
@@ -28,20 +28,16 @@ function passwordgenerate() {
     "Don't bet on it."
   ];
 
-  // Choose a random response from the list
+  
   const randomResponse = array[Math.floor(Math.random() * array.length)];
 
-  // Convert the response to bytes using UTF-8 encoding
+
   const responseBytes = Buffer.from(randomResponse, 'utf-8');
 
-  // Generate random bytes for padding (optional)
-  // You can adjust the number of random bytes for a longer hex string
   const paddingBytes = crypto.randomBytes(4);
 
-  // Combine response and padding bytes
   const allBytes = Buffer.concat([responseBytes, paddingBytes]);
 
-  // Convert the combined bytes to uppercase hex string
   return allBytes.toString('hex').toUpperCase();
 }
 
@@ -68,9 +64,9 @@ if( user) {
      await prisma.users.update({
   where: { userid: user.userid },
   data: {
-    password: Passwordhash, // Replace with your password hashing logic
+    password: Passwordhash, 
     passwordreset: undefined,
-    passwordresetexpire: undefined, // Set an appropriate expiration time
+    passwordresetexpire: undefined, 
   },
 })
     await passwordreset(user.email, newpassword);

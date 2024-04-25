@@ -18,8 +18,8 @@ const CreateReport = ({ id }) => {
 
   const handleClose = () => {
     setShow(false);
-    setSuccessMessage(''); // Clear success message on modal close
-    setErrorMessage(''); // Clear error message on modal close
+    setSuccessMessage(''); 
+    setErrorMessage(''); 
   };
 
   const handleShow = () => setShow(true);

@@ -1,5 +1,5 @@
 "use server"
-import { getPrismaInstance, closePrismaInstance } from "../../auth/[...nextauth]/lib/prisma"; // Assuming correct path
+import { getPrismaInstance, closePrismaInstance } from "../../auth/[...nextauth]/lib/prisma"; 
 import { NextResponse } from 'next/server';
 
 
@@ -8,8 +8,8 @@ export async function GET(request) {
         const prisma = getPrismaInstance();
         const Users = await prisma.users.findMany({
             include: {
-      department: true, // Include related department data
-      roles: true,      // Include related role data // Include related ideaviews data
+      department: true, 
+      roles: true,      
     }
         });
        console.log(Users)

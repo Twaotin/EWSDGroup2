@@ -22,8 +22,8 @@ export async function PATCH(request) {
         username: formData.username,
         password: hashedpassword,
         email: formData.email,
-        roleid: formData.roleid, // Assuming the role ID you want to link
-        departmentid:parseInt(formData.departmentid), // Assuming the department ID you want to link
+        roleid: formData.roleid, 
+        departmentid:parseInt(formData.departmentid), 
         isactive: formData.isactive
       }
      console.log(data)

@@ -8,7 +8,7 @@ const fetcher = (url) => fetch(url).then((res) => res.json());
 
 const ViewedIdeas = () => {
   const router = useRouter()
-  const { data: ideas, error } = useSWR('http://localhost:3000/api/fetch/idea', fetcher, { refreshInterval: 500 }); // Revalidate data every 1 second
+  const { data: ideas, error } = useSWR('http://localhost:3000/api/fetch/idea', fetcher, { refreshInterval: 500 }); 
   const [currentPage, setCurrentPage] = useState(1);
   const ideasPerPage = 5;
 
@@ -16,13 +16,13 @@ const ViewedIdeas = () => {
 
  useEffect(() => {
     if (ideas) {
-      // Fetch view counts for each idea on the client-side
+     
       const fetchAndSortIdeas = async () => {
         const updatedIdeas = await Promise.all(
           ideas.map(async (idea) => {
             const response = await fetch(`http://localhost:3000/api/fetch/views/${idea.ideaid}`);
             const viewCounts = await response.json();
-            return { ...idea, count: viewCounts[0]?._count || 0 }; // Add count property to each idea
+            return { ...idea, count: viewCounts[0]?._count || 0 };
           })
         );
         setSortedIdeas(updatedIdeas.sort((a, b) => b.count - a.count));
@@ -31,10 +31,6 @@ const ViewedIdeas = () => {
       fetchAndSortIdeas();
     }
   }, [ideas]);
-  // Fetch view counts for each idea
-  
- 
-  // Sorting function based on count
   
 
   const indexOfLastIdea = currentPage * ideasPerPage;
@@ -61,7 +57,7 @@ const ViewedIdeas = () => {
               <button onClick={() => handleThumbsDown(idea)}>Thumbs Down {idea.isthumbsdown}</button>
             </div>
           ))}
-      {/* Pagination */}
+      
       <ul className="pagination">
         {Array.from({ length: Math.ceil(sortedIdeas.length / ideasPerPage) }, (_, index) => (
           <li key={index} onClick={() => paginate(index + 1)}>

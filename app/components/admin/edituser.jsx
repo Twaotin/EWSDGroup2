@@ -25,7 +25,7 @@ const EditUser = ({ id }) => {
   const [passwordChanged, setPasswordChanged] = useState(false);
 const [Message, setMessage] = useState('');
   useEffect(() => {
-    // Fetch data for roles
+   
         const fetchUserData = async () => {
       try {
         const response = await fetch(`http://localhost:3000/api/fetch/user/${id}`);
@@ -33,7 +33,7 @@ const [Message, setMessage] = useState('');
           const userData = await response.json();
           setFormData({
             ...userData,
-            // Convert string to boolean
+            
           });
           setSelectedRoleId(userData.roles.roleid);
           setSelectedDepartmentId(userData.department.departmentid);
@@ -61,7 +61,7 @@ const [Message, setMessage] = useState('');
       }
     };
 
-    // Fetch data for departments
+   
     const fetchDepartments = async () => {
       try {
         const response = await fetch('http://localhost:3000/api/fetch/department');
@@ -134,7 +134,8 @@ const response = await fetch("http://localhost:3000/api/edit/user", {
 
   return (
     <>    
-        <div>
+      <div className='tablegeneric'>
+        <h2>Edit User</h2>
     {Message && <Alert variant="light"> {Message}</Alert>}
      <Form onSubmit={handleRegistration}>
       <Row>

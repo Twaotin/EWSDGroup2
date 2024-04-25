@@ -40,7 +40,7 @@ const [Message, setMessage] = useState('');
       }
     };
 
-    // Fetch data for departments
+   
     const fetchDepartments = async () => {
       try {
         const response = await fetch('http://localhost:3000/api/fetch/department');
@@ -135,7 +135,8 @@ const [Message, setMessage] = useState('');
 
   return (
     <>    
-        <div className='tablegeneric'>
+      <div className='tablegeneric'>
+        <h2>Create User</h2>
     {Message && <Alert variant="light"> {Message}</Alert>}
      <Form onSubmit={handleRegistration}>
       <Row>

@@ -29,12 +29,12 @@ const DepartmentIdeaChart = () => {
 
    
 
-  // Extract labels and data from departmentIdeaCount
+  
   const labels = results.map(entry => entry.departmentname);
   const data = results.map(entry => entry._count.ideas);
   console.log('labels',labels)
   console.log("data",data)
-  // Chart.js data
+
   const chartData = {
     labels: labels,
     datasets: [
@@ -48,7 +48,7 @@ const DepartmentIdeaChart = () => {
     ],
   };
 
-  // Chart.js options
+
   const chartOptions = {
     indexAxis: 'y',
     scales: {
@@ -63,7 +63,7 @@ const DepartmentIdeaChart = () => {
   };
 
   return (
-    <div >
+    <div className='stats' >
       <h2>Ideas Made by Each Department</h2>
       <Bar data={chartData} options={chartOptions}   />
     </div>

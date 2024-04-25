@@ -1,5 +1,5 @@
 "use server"
-import { getPrismaInstance, closePrismaInstance } from "../../../auth/[...nextauth]/lib/prisma"; // Assuming correct path
+import { getPrismaInstance, closePrismaInstance } from "../../../auth/[...nextauth]/lib/prisma";
 import { NextResponse, NextRequest } from 'next/server';
 
 
@@ -9,12 +9,12 @@ export async function GET(NextRequest) {
        const prisma = getPrismaInstance();
         const userData = await prisma.users.findUnique({
       where: {
-        userid:parseInt(id) // Assuming the ID is an integer
+        userid:parseInt(id) 
       },
       include: {
         department: true,
         roles: true
-        // Include any other related data as needed
+      
       }
     });
        console.log(userData)

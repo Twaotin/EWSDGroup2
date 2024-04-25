@@ -55,7 +55,7 @@ import useSWR from 'swr';
     },
   };
     return (
-      <div >
+      <div className='stats'>
       <h2>Contributors per Department</h2>
       <Bar data={chartData} options={chartOptions}   />
     </div>

@@ -32,10 +32,10 @@ export async function POST(request) {
           }
    
 
-  // Send a success response
+
   
 } catch (error) {
-  // Handle errors
+ 
   console.error('Error updating thumbs down count:', error.message);
   return res.status(500).json({ message: 'Internal Server Error' });
 }finally {

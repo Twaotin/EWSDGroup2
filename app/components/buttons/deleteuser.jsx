@@ -1,6 +1,6 @@
 "use client"
 import { useState } from 'react';
-
+import Button from 'react-bootstrap/Button';
 const Deleteuser = ({ userid }) => {
 
 
@@ -27,9 +27,9 @@ const response = await fetch("http://localhost:3000/api/delete/user", {
         console.log(responseData);
 }
 return (
-    <button type="button"  onClick={handleDelete}>
+    <Button type="button"  onClick={handleDelete}>
       Delete
-    </button>
+    </Button>
   );
 }
 export default Deleteuser;

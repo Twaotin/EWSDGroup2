@@ -56,7 +56,7 @@ const  IdeapercentageChart = () => {
   };
 
    return (
-    <div >
+    <div className='stats' >
       <h2>Percentage of Ideas by Each Department</h2>
       <Pie data={chartData} options={chartOptions}   />
     </div>

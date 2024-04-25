@@ -58,7 +58,7 @@ const fetcher = (url) => fetch(url).then((res) => res.json());
   };
 
   return (
-    <div >
+    <div className='stats'>
       <h2>Ideas With and without comments</h2>
       <Pie data={chartData} options={chartOptions}   />
     </div>

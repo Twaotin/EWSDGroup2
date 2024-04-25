@@ -6,18 +6,20 @@ import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
 import Alert from 'react-bootstrap/Alert';
 const IdeaDateForm = () => {
-  // State variables to hold form data
+  
   const [formData, setFormData] = useState({
     academicyear: '',
+    opendate: '',
     closuredate: '',
     finalclosuredate: ''
   });
 const [Message, setMessage] = useState('');
-  // Function to handle form submission
+ 
   const handleSubmit =  async (event) => {
     event.preventDefault();
- const formattedData = {
-  academicyear: formData.academicyear,
+ const Data = {
+   academicyear: formData.academicyear,
+   opendate: `${formData.opendate}T00:00:00.000Z`,
   closuredate: `${formData.closuredate}T00:00:00.000Z`,
   finalclosuredate: `${formData.finalclosuredate}T00:00:00.000Z`
 };
@@ -26,7 +28,7 @@ const [Message, setMessage] = useState('');
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(formattedData),
+          body: JSON.stringify(Data),
         });
     if (!response.ok) {
           throw new Error("Form submission failed");
@@ -48,7 +50,7 @@ const [Message, setMessage] = useState('');
    
   };
 
-  // Function to handle input changes
+
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormData({
@@ -59,7 +61,8 @@ const [Message, setMessage] = useState('');
 
   return (
     <>
-    <div>
+      <div className='tabledataextra'>
+        <h2>Add Date</h2>
     {Message && <Alert variant="light"> {Message}</Alert>}
     <Form onSubmit={handleSubmit}>
       <Row>
@@ -70,6 +73,19 @@ const [Message, setMessage] = useState('');
               type="text"
               name="academicyear"
               value={formData.academicyear}
+              onChange={handleChange}
+            />
+          </Form.Group>
+        </Col>
+          </Row>
+          <Row>
+        <Col>
+          <Form.Group controlId="formOpenDate">
+            <Form.Label>Open Date</Form.Label>
+            <Form.Control
+              type="date"
+              name="opendate"
+              value={formData.opendate}
               onChange={handleChange}
             />
           </Form.Group>

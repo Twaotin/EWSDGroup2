@@ -40,7 +40,7 @@ async function comment(id) {
                 commentdate: 'desc'
             },
             include: {
-                user: true // Assuming the name of the relation is User
+                user: true 
             }
         });
         console.log("comment:", comment);
@@ -61,7 +61,7 @@ export async function thumbsup(id) {
       }
     });
     
-  //return NextResponse.json(count)
+
   console.log("count for thumbup",count)
   return count;
     } catch (error) {
@@ -81,7 +81,7 @@ export async function thumbdown(id) {
       }
     });
     return count
- //return NextResponse.json(count)
+
     } catch (error) {
         console.error(error);
     return NextResponse.json({ message: 'Error Fetching User Data ' });
@@ -93,7 +93,7 @@ export async function thumbdown(id) {
 async function recordView(id) {
    const session = await getServerSession(authOptions)
  
-    // Check if the user has a specific role before proceeding
+    
   if (session.user.role === "staff") {
     try {
       const prisma = getPrismaInstance();
@@ -156,7 +156,7 @@ export default async function details({params}) {
     <h1 className='centertext'>{idea.ideatitle}</h1>
     <div className='centertext'> <h3>{idea.ideatext}</h3></div>
      
-    <div>Comment{comments.commenttext}</div>
+    <div>{comments.commenttext}</div>
     <div>{comments.commenttext}</div>
      <div className='commentcontainer'>
       <div className='commentsubcontainer'>
@@ -185,10 +185,13 @@ export default async function details({params}) {
      <CommentForm  id={params.id}/>
      </div>
      </div>
-     </div>
-     <Thumbup id={params.id}/> 
-     <Thumbdown id={params.id}/>
-     <Createreport  id={params.id}/>
+            </div>
+            <div className='flex'>
+            <div className='button'><Thumbup id={params.id} /> </div>
+            <div className='button'> <Thumbdown id={params.id}/></div>
+            <div className='button'><Createreport  id={params.id}/></div>
+            </div>
+     
     </Suspense>
     </div>
     </div>

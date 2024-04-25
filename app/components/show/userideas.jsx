@@ -29,7 +29,8 @@ const Userideas = () => {
 
   return (
     <div className="staffideasContainer">
-      {currentIdeas.map((idea) => (
+      {currentIdeas.length > 0 ? (
+      currentIdeas.map((idea) => (
         <div key={idea.ideaid} className="staffidea">
           <div >
             <h5>Idea Title: {idea.ideatitle}</h5>
@@ -38,7 +39,10 @@ const Userideas = () => {
           </div>
           
         </div>
-      ))}
+      ))
+      ) : (
+        <h2>No ideas found</h2> 
+      )}
      
       <Pagination>
         {Array.from({ length: Math.ceil(ideas.length / ideasPerPage) }, (_, index) => (

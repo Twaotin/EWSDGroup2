@@ -4,7 +4,7 @@ import useSWR from 'swr';
 import { useRouter } from 'next/navigation';
 import { Pagination } from 'react-bootstrap';
 import Editreport from '../../components/buttons/reportresolve';
-
+import Button from 'react-bootstrap/Button';
 const fetcher = (url) => fetch(url).then((res) => res.json());
 
 const Reports = () => {
@@ -28,12 +28,7 @@ const Reports = () => {
     <div>
       {currentIdeas.map((report) => (
         <div key={report.reportid}>
-          <button
-            type="button"
-            onClick={() => router.push(`/api/idea/${report.reportid}`)}
-          >
-            Comments
-          </button>
+        
           <h3>Report Subject: {report.reportsubject}</h3>
           <div>Body: {report.reporttext}</div>
           <div>Review Status: {report.reviewstatus}</div>
@@ -45,7 +40,7 @@ const Reports = () => {
         </div>
       ))}
 
-      {/* React Bootstrap Pagination */}
+      
       <Pagination>
         <Pagination.First onClick={() => paginate(1)} />
         <Pagination.Prev onClick={() => paginate(currentPage - 1)} disabled={currentPage === 1} />

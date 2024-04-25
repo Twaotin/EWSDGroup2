@@ -1,5 +1,5 @@
 "use server"
-import { getPrismaInstance, closePrismaInstance } from "../../../auth/[...nextauth]/lib/prisma"; // Assuming correct path
+import { getPrismaInstance, closePrismaInstance } from "../../../auth/[...nextauth]/lib/prisma";
 import { NextResponse } from 'next/server';
 
 
@@ -8,13 +8,13 @@ export async function GET(request) {
       const prisma = getPrismaInstance();
          const ideasWithCommentsResults = await prisma.ideas.findMany({
   where: {
-    comments: { some: {} }, // Filters ideas with comments
+    comments: { some: {} }, 
   },
   select: {
     ideaid: true,
-    ideatitle: true, // You can add other idea fields for selection
-    department: { select: { departmentname: true } }, // Get department name for the idea
-    comments: true, // Include comments associated with each idea
+    ideatitle: true,
+    department: { select: { departmentname: true } }, 
+    comments: true, 
   },
 });
 

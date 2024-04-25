@@ -12,7 +12,7 @@ const CommentForm = ({ id }) => {
     ideaid: parseInt(id),
   });
   const [errors, setErrors] = useState({});
-  const [successMessage, setSuccessMessage] = useState(false);
+  const [successMessage, setSuccessMessage] = useState('');
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -23,7 +23,6 @@ const CommentForm = ({ id }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Validate form fields
     const newErrors = {};
     if (!comment.commenttext) {
       newErrors.requiredFields = 'field are required';
@@ -47,22 +46,18 @@ const CommentForm = ({ id }) => {
         throw new Error('Failed to submit comment');
       } else {
         
-        
-      setSuccessMessage(true);
-      // Clear form fields
+        const responseData = await response.json();
+        setSuccessMessage(responseData.message);
+       
       setComment({
         commenttext: '',
         isanonymous: false,
         ideaid: parseInt(id),
       });
       setErrors({});
-       const timeout = setTimeout(() => setSuccessMessage(false), 3000); 
+       const timeout = setTimeout(() => setSuccessMessage(''), 3000); 
            return () => clearTimeout(timeout);
       }
-
-      const responseData = await response.json();
-      console.log(responseData);
-
       
       
     } catch (error) {
@@ -75,7 +70,7 @@ const CommentForm = ({ id }) => {
   return (
     <div>
       
-      {successMessage && <Alert variant="success">Comment submitted successfully!</Alert>}
+      {successMessage &&  <Alert variant="light"> {successMessage}</Alert>}
       <Form onSubmit={handleSubmit}>
         <FormGroup controlId="commenttext">
           <FormLabel> Post Comment </FormLabel>

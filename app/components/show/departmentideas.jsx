@@ -28,18 +28,23 @@ const Departmentideas = () => {
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
+    <>
     <div className="staffideasContainer">
-      {currentIdeas.map((idea) => (
-        <div key={idea.ideaid} className="staffidea">
-          <div >
-            <h5>Idea Title: {idea.ideatitle}</h5>
-            <h5> By:{idea. userid}</h5>
-          <h5>{idea.submissiondate}</h5>
-          <Link href={`/departmentcoordinator/idea/${idea.ideaid}`} className=" buttonStyle">View</Link>
+    {currentIdeas.length > 0 ? (
+        currentIdeas.map((idea) => (
+          <div key={idea.ideaid} className="staffidea">
+            <div>
+              <h5>Idea Title: {idea.ideatitle}</h5>
+              <h5>By: {idea.userid}</h5>
+              <h5>Submission Date: {idea.submissiondate}</h5>
+              <Link href={`/departmentcoordinator/idea/${idea.ideaid}`} className="buttonStyle">View</Link>
+            </div>
           </div>
-          
-        </div>
-      ))}
+        ))
+      ) : (
+        <h2>No ideas found</h2> 
+      )}
+     
      
       <Pagination>
         {Array.from({ length: Math.ceil(ideas.length / ideasPerPage) }, (_, index) => (
@@ -48,7 +53,8 @@ const Departmentideas = () => {
           </Pagination.Item>
         ))}
       </Pagination>
-    </div>
+      </div>
+      </>
   );
 };
 

@@ -17,7 +17,7 @@ return NextResponse.json({ message: 'Category submitted successfully!' })
          console.error(error);
     return NextResponse.json({ message: 'Error processing request' });
     }finally {
-    // Close the Prisma client instance to release the database connection
+   
     await closePrismaInstance();
   }
 

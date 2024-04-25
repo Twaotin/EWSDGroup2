@@ -38,7 +38,7 @@ async function comment(id) {
                 commentdate: 'desc'
             },
             include: {
-                user: true // Assuming the name of the relation is User
+                user: true 
             }
         });
         console.log("comment:", comment);
@@ -59,7 +59,7 @@ export async function thumbsup(id) {
       }
     });
     
-  //return NextResponse.json(count)
+ 
   console.log("count for thumbup",count)
   return count;
     } catch (error) {
@@ -79,7 +79,7 @@ export async function thumbdown(id) {
       }
     });
     return count
- //return NextResponse.json(count)
+
     } catch (error) {
         console.error(error);
     return NextResponse.json({ message: 'Error Fetching User Data ' });
@@ -91,7 +91,7 @@ export async function thumbdown(id) {
 async function recordView(id) {
    const session = await getServerSession(authOptions)
  
-    // Check if the user has a specific role before proceeding
+   
   if (session.user.role === "staff") {
     try {
       const prisma = getPrismaInstance();
@@ -152,7 +152,7 @@ export default async function details({params}) {
     <h1 className='centertext'>{idea.ideatitle}</h1>
     <div className='centertext'> <h3>{idea.ideatext}</h3></div>
      
-    <div>Comment{comments.commenttext}</div>
+    <div>{comments.commenttext}</div>
     <div>{comments.commenttext}</div>
      <div className='commentcontainer'>
       <div className='commentsubcontainer'>
@@ -163,7 +163,7 @@ export default async function details({params}) {
         <ul>
           {comments.map((comment) => (
             <li key={comment.commentid}>
-              {comment.isanonymous ? <h4> Anonymous </h4> :  <h4> {comment.user.username} </h4>} 
+                <h4> {comment.user.username} </h4>
               <p>{comment.commenttext}</p>
               <p>Date: {comment.commentdate.toLocaleString()}</p>
               
@@ -178,12 +178,12 @@ export default async function details({params}) {
     <div>Thumbs Ups: {thumbups}</div> 
     <div> thumbs down: {thumbdowns}</div>
     <div>
-     <CommentForm  id={params.id}/>
+    
      </div>
      </div>
      </div>
      
-     <Createreport  id={params.id}/>
+    
     </Suspense>
     </div>
     </div>

@@ -62,7 +62,7 @@ console.log(anonymousCommentsResults)
   };
 
    return (
-    <div >
+    <div className='stats'>
       <h2>Anonymous Ideas and Comments </h2>
       <Bar data={chartData} options={chartOptions}   />
     </div>

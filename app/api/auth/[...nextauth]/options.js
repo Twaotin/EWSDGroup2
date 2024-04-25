@@ -1,6 +1,6 @@
 import { getPrismaInstance, closePrismaInstance } from "./lib/prisma";
 
-import bcrypt from "bcrypt"; // Import bcrypt for password comparison
+import bcrypt from "bcrypt"; 
 const NextAuth = require('next-auth');
 import CredentialsProvider from "next-auth/providers/credentials";
 
@@ -44,10 +44,10 @@ export const authOptions = {
   where: { email },
 });
 const user = await prisma.users.findUnique({
-    where: { email }, // Replace userId with the actual user ID you want to query
+    where: { email }, 
     include: {
         roles : true,
-        department: true // Include the entire Department table
+        department: true 
     }
 });
                   console.log("query back", user)
@@ -70,7 +70,7 @@ const user = await prisma.users.findUnique({
                                await prisma.users.update({
                                 where: { userid: user.userid },
                           data: {
-                        lastlogin: new Date() // Set lastLogin to current timestamp
+                        lastlogin: new Date() 
                       }
                          });
 
@@ -104,19 +104,19 @@ const user = await prisma.users.findUnique({
   callbacks: {
     session: ({ session, token }) => {
       console.log('Session Callback', { session, token });
-      //session.user.role = token.role
+      
       session.user.email = token.email
       session.user.userId = token.userId
       session.user.role = token.role
       session.user.department = token.department
       session.user.departmentId = token.departmentId
-      //session.user.key = token.randomKey
+      
       return session
     },
     jwt: ({ token, user }) => {
       console.log('JWT Callback', { token, user });
       if (user) {
-        //token.role = user.rolen
+        
         token.userId = user.userId
         token.role = user.role
         token.department = user.department

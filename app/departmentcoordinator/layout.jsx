@@ -3,11 +3,13 @@ import Sidebar from "../components/utils/departmentsidebar"
 export default function Departmentlayout({ children}) {
   return (
     <>
-    <Sidebar />
-
-    <div className='departmentcoordinator-children'>
-      {children}
+       <div className="pageContainer">
+        <Sidebar />
+         </div>
+    <div className="contentContainer">
+        {children}
     </div>
+  
     </>
   )
 }
