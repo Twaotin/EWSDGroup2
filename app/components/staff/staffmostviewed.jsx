@@ -50,7 +50,8 @@ const ViewedIdeas = () => {
 
   return (
     <div className="staffideasContainer">
-      {sortedIdeas.slice(indexOfFirstIdea, indexOfLastIdea).map((idea) => (
+      {sortedIdeas.length > 0 ? (
+      sortedIdeas.slice(indexOfFirstIdea, indexOfLastIdea).map((idea) => (
         <div key={idea.ideaid} className="staffidea">
           <h5>Idea Title: {idea.ideatitle}</h5>
           {idea.isanonymous ? <h5>By: Anonymous </h5> : <h5> By:{idea.user.username}</h5>} 
@@ -59,7 +60,10 @@ const ViewedIdeas = () => {
           <Link href={`/staff/staffidea/${idea.ideaid}`} className=" buttonStyle">View</Link>
           
         </div>
-      ))}
+      ))
+      ) : (
+        <h2>No ideas found</h2> 
+      )}
       
       <Pagination>
         {Array.from({ length: Math.ceil(sortedIdeas.length / ideasPerPage) }, (_, index) => (

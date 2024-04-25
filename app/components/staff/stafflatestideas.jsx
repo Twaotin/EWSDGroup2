@@ -29,7 +29,8 @@ const Latest = () => {
 
   return (
     <div className="staffideasContainer">
-      {currentIdeas.map((idea) => (
+      {currentIdeas.length > 0 ? (
+      currentIdeas.map((idea) => (
         <div key={idea.ideaid} className="staffidea">
           
           <h5>Idea Title: {idea.ideatitle}</h5>
@@ -39,7 +40,10 @@ const Latest = () => {
           {idea.isclosure && <h5>Closure date reached </h5> }
           <Link href={`/staff/staffidea/${idea.ideaid}`} className=" buttonStyle">View</Link>
         </div>
-      ))}
+      ))
+      ) : (
+        <h2>No ideas found</h2> 
+      )}
      
       <Pagination>
         {Array.from({ length: Math.ceil(ideas.length / ideasPerPage) }, (_, index) => (

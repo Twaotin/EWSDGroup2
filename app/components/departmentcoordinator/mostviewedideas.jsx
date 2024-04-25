@@ -50,7 +50,8 @@ const ViewedIdeas = () => {
 
   return (
     <div className="staffideasContainer">
-      {sortedIdeas.slice(indexOfFirstIdea, indexOfLastIdea).map((idea) => (
+      {sortedIdeas.length > 0 ? (
+      sortedIdeas.slice(indexOfFirstIdea, indexOfLastIdea).map((idea) => (
         <div key={idea.ideaid} className="staffidea">
           <div >
           <h5>Idea Title: {idea.ideatitle}</h5>
@@ -61,7 +62,10 @@ const ViewedIdeas = () => {
           </div>
           
         </div>
-      ))}
+      ))
+      ) : (
+        <h2>No ideas found</h2> 
+      )}
      
       <Pagination>
         {Array.from({ length: Math.ceil(sortedIdeas.length / ideasPerPage) }, (_, index) => (
