@@ -82,34 +82,3 @@ const ViewedIdeas = () => {
 
 export default ViewedIdeas;
 
-<div className="staffideasContainer">
-      {ideas.length > 0 ? (
-        <>
-         
-          {ideas.slice(getIndexOfIdeas().startIndex, getIndexOfIdeas().endIndex).map((idea, index) => (
-            <div key={idea.ideaid} className="staffidea">
-              <div >
-              <h5>Idea Title: {idea.ideatitle}</h5>
-              {idea.isanonymous ? <h5>By: Anonymous </h5> :  <h5> By:{idea.user.username}</h5>} 
-              <Link href={`/admin/idea/${idea.ideaid}`} className="buttonStyle">View</Link>
-              </div>
-            </div>
-          ))}
-
-          
-          <Pagination>
-            {Array.from({ length: Math.ceil(ideas.length / ideasPerPage) }, (_, index) => (
-              <Pagination.Item
-                key={index + 1}
-                active={index + 1 === currentPage}
-                onClick={() => paginate(index + 1)}
-              >
-                {index + 1}
-              </Pagination.Item>
-            ))}
-          </Pagination>
-        </>
-      ) : (
-        <p>No ideas found.</p>
-      )}
-    </div>

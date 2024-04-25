@@ -34,7 +34,7 @@ const  passwordreset = async (emailpassword, newpassword) => {
   from: email,
   to: emailpassword,
     subject: 'Your New Password',
-    text: `Your password has been reset. Here is your new password: <strong>${newpassword}</strong>. .`
+    text: `Your password has been reset. Here is your new password:${newpassword}.`
 };
 try {
     await transporter.sendMail(passwordreset);
@@ -61,7 +61,12 @@ const sendIdeaSubmissionNotification = async (ideaData) => {
   select: {
     email: true
   }
-});
+  });
+  const user = await prisma.users.findUnique({
+    where: {
+      userid:parseInt(ideaData.userid) 
+    }
+  });
 const emailString = userEmail.email;
 console.log(userEmail)
 
@@ -69,7 +74,7 @@ console.log(userEmail)
   from: email,
   to: emailString,
     subject: 'New Idea Submitted!',
-    text: `A new idea has been submitted by (UserID: ${ideaData.userid}).\nIdea Title: ${ideaData.ideatitle}`
+    text: `A new idea has been submitted by  User: ${user.username} with (UserID: ${ideaData.userid}).\nIdea Title: ${ideaData.ideatitle}`
 };
 
   try {
@@ -135,7 +140,7 @@ console.log(userEmail)
 
 async function findQACoordinatorEmail(departmentId) {
 
-  return 'qa_coordinator@example.com'; // Replace with actual email extraction
+  return 'qa_coordinator@example.com'; 
 }
 
 export { sendIdeaSubmissionNotification, sendCommentNotification, passwordreset, passwordresetemail };

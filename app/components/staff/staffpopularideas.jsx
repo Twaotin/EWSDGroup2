@@ -10,6 +10,21 @@ const Popular = () => {
   const [ideas, setIdeas] = useState([]);
   const ideasPerPage = 5;
   const [currentPage, setCurrentPage] = useState(1);
+  const fetchThumbsData = async (data) => {
+    const allThumbsUpCounts = {};
+
+    await Promise.all(
+      data.map(async (idea) => {
+        const thumbsUpResponse = await fetch(`http://localhost:3000/api/fetch/thumbup/${idea.ideaid}`);
+        const thumbsUpData = await thumbsUpResponse.json();
+        allThumbsUpCounts[idea.ideaid] = thumbsUpData;
+      })
+    );
+
+    setThumbsUpCounts(allThumbsUpCounts);
+
+    return allThumbsUpCounts;
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -18,32 +33,22 @@ const Popular = () => {
         if (!res.ok) {
           throw new Error('Failed to fetch ideas');
         }
+
         const data = await res.json();
-        console.log(data);
-        data.sort((idea1, idea2) => idea2.thumbsUpCounts - idea1.thumbsUpCounts);
-        setIdeas(data);
+
+        const allThumbsUpCounts = await fetchThumbsData(data);
 
         
-        const fetchThumbsData = async () => {
-          const allThumbsUpCounts = {};
-          
-
-          for (const idea of data) {
-            const thumbsUpResponse = await fetch(`http://localhost:3000/api/fetch/thumbup/${idea.ideaid}`);
-            const thumbsUpData = await thumbsUpResponse.json();
-            allThumbsUpCounts[idea.ideaid] = thumbsUpData;
-          }
-
-          setThumbsUpCounts(allThumbsUpCounts);
-        };
-
-        fetchThumbsData();
+        data.sort((idea1, idea2) => allThumbsUpCounts[idea2.ideaid] - allThumbsUpCounts[idea1.ideaid]);
+        
+        setIdeas(data);
+        setIsLoading(false);
       } catch (error) {
         console.error('Error fetching ideas:', error);
       }
     };
 
-    fetchData();
+    fetchData(); 
   }, []);
 
   
@@ -65,8 +70,9 @@ const Popular = () => {
             <div key={idea.ideaid} className="staffidea">
               
               <h3>Idea Title: {idea.ideatitle}</h3>
-              {idea.isanonymous ? <h5>By: Anonymous </h5> : <h5> By:{idea.user.username}</h5>} 
-              {idea.isclosure && <h5>Closure date reached </h5> }
+              {idea.isanonymous ? <h5>By: Anonymous </h5> :  <h5> By:{idea.user.username}</h5>} 
+              {idea.isclosure && <h5> closure </h5>} 
+              <div>thumbup {thumbsUpCounts[idea.ideaid] }</div>
              <Link href={`/staff/staffidea/${idea.ideaid}`} className="buttonStyle">View</Link>
             </div>
           ))}

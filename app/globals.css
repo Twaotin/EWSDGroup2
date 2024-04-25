@@ -5,9 +5,7 @@ body {
 .loginform {
     display: flex;
       justify-content: center;
-      /* Center horizontally */
       align-items: center;
-      /* Center vertically */
       height: 100vh;
 }
 
@@ -186,18 +184,13 @@ li{
 
 .form-container {
       max-width: 40px;
-      /* Adjust the maximum width as needed */
       margin: 0 auto;
-      /* Center the form horizontally */
       padding: 20px;
-      /* Add padding for spacing */
     }
 
 .categories-table {
   max-width: 800px;
-  /* Adjust the maximum width as needed */
   margin: 0 auto;
-  /* Center the table horizontally */
 }
 .qamanager-children{
   max-width: 50rem;
@@ -343,7 +336,7 @@ li{
   padding: 1rem;
   }
 
-/*  sidebar 2 */
+
 .sidebar {
   background-color: #1282a2;
   color: white;
@@ -356,14 +349,14 @@ li{
   z-index: 100;
 }
 
-/* Sidebar navigation */
+
 .sidebar-nav {
   list-style: none;
   padding: 0;
   margin: 0;
 }
 
-/* Sidebar links */
+
 .sidebar-link {
   color: white;
   text-decoration: none;
@@ -371,7 +364,7 @@ li{
   display: block;
 }
 
-/* Toggle button for smaller screens */
+
 .toggle-button {
   background: #d9d9d9;
   border: none;
@@ -381,10 +374,9 @@ li{
   padding: 0.5em;
 }
 
-/* Media query for smaller screens (turns into a dropdown navbar) */
 @media (max-width: 768px) {
 
-  /* Change the sidebar to relative position */
+ 
   .sidebar {
     position: relative;
     height: auto;
@@ -392,32 +384,30 @@ li{
     padding-top: 0;
   }
 
-  /* Initially hide the sidebar navigation on smaller screens */
+
   .sidebar-nav {
     display: none;
     flex-direction: column;
-    /* Align in one column */
+ 
   }
 
-  /* Display the sidebar navigation when open */
+
   .sidebar-nav.open {
     display: flex;
   }
 
-  /* Update toggle button position */
+
   .toggle-button {
     position: absolute;
-    /* Absolute position for the toggle button */
     top: 1em;
-    /* Align at the top */
     right: 1em;
-    /* Align at the right */
+  
   }
 
-  /* Update sidebar links for smaller screens */
+  
   .sidebar-link {
     padding: 0.5em;
-    /* Adjust padding */
+    
   }
 }
 
@@ -426,7 +416,7 @@ li{
   background-color: #d9d9d9;
 }
 
-/* Content container for body content */
+
 .contentContainer {
   padding: 1em;
   flex: 1;
@@ -434,12 +424,11 @@ li{
   
 }
 
-/* Media query for smaller screens */
+
 @media (max-width: 768px) {
 
-  /* Adjust content when sidebar is not fixed */
+ 
   .contentContainer {
     margin-left: 0;
-    /* Reset margin */
   }
 }

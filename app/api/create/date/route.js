@@ -16,7 +16,7 @@ const dateData = {
 const newReport = await prisma.ideadates.create({
       data: dateData 
     });
-return NextResponse.json({ message: 'report submitted successfully!' })
+return NextResponse.json({ message: 'date submitted successfully!' })
     } catch (error) {
          console.error(error);
     return NextResponse.json({ message: 'Error processing request' });

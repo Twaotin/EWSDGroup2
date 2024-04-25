@@ -25,8 +25,9 @@ const Reports = () => {
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
-    <div>
-      {currentIdeas.map((report) => (
+    <div className="staffideasContainer">
+      {currentIdeas.length > 0 ? (
+      currentIdeas.map((report) => (
         <div key={report.reportid}>
         
           <h3>Report Subject: {report.reportsubject}</h3>
@@ -38,7 +39,10 @@ const Reports = () => {
             <Editreport reportid={report.reportid} />
           </div>
         </div>
-      ))}
+      ))
+      ) : (
+        <h2>No Reports found</h2> 
+      )}
 
       
       <Pagination>
