@@ -42,7 +42,7 @@ const response = await fetch(`http://localhost:3000/api/thumbs/thumbup`, {
   return (
     <>
    
-    <Button type="button"  onClick={handlethumbup}>
+    <Button type="button"  onClick={handlethumbup} variant="info">
       thumbup  
       </Button>
       {Message && <Alert variant="light"> {Message}</Alert>}

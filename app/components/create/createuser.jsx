@@ -135,7 +135,9 @@ const [Message, setMessage] = useState('');
 
   return (
     <>    
-      <div className='tablegeneric'>
+      <div className=''>
+      <div className=''>
+      <div className='tabledata'>
         <h2>Create User</h2>
     {Message && <Alert variant="light"> {Message}</Alert>}
      <Form onSubmit={handleRegistration}>
@@ -247,11 +249,13 @@ const [Message, setMessage] = useState('');
           </Form.Group>
         </Col>
       </Row>
-      <Button variant="primary" type="submit">
+      <Button variant="info" type="submit">
         Submit
       </Button>
     </Form>
-       </div>
+        </div>
+      </div>
+      </div>
     </>
   );
 };

@@ -61,7 +61,7 @@ const [Message, setMessage] = useState('');
 
   return (
     <>
-      <div className='tabledataextra'>
+      <div className='tabledata'>
         <h2>Add Date</h2>
     {Message && <Alert variant="light"> {Message}</Alert>}
     <Form onSubmit={handleSubmit}>
@@ -117,7 +117,7 @@ const [Message, setMessage] = useState('');
           </Form.Group>
         </Col>
       </Row>
-      <Button variant="primary" type="submit">
+      <Button variant="info" type="submit">
         Submit
       </Button>
     </Form>

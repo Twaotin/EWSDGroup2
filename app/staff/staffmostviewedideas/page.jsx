@@ -7,7 +7,7 @@ export default function page() {
    <>
    <div>
       <h3>Most Viewed Ideas</h3>
-      <p>Current Most Viewed</p>
+      <p>Current Most Viewed Ideas</p>
     </div>
     <Suspense fallback={<Loading/>}>
     <ViewedIdeas />

@@ -18,14 +18,19 @@ import {Chart as ChartJS,
   Tooltip,
   Legend,);
 import useSWR from 'swr';
-const DepartmentIdeaChart = () => {
+const DepartmentIdeaChart = ({ closuredateid }) => {
   const fetcher = (url) => fetch(url).then((res) => res.json());
 
-  const { data: results, error } = useSWR('http://localhost:3000/api/fetch/stats/ideaperdept', fetcher, { refreshInterval: 1000 });
+  const { data: results, error } = useSWR(`http://localhost:3000/api/fetch/stats/ideaperdept/${closuredateid}`, fetcher, { refreshInterval: 1000 });
   
 
   if (error) return <div>Error loading data</div>;
   if (!results) return <div>Loading...</div>;
+
+  
+if (results.length === 0) {
+  return <div className="staffideasContainer">No data found</div>;
+}
 
    
 

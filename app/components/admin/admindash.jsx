@@ -54,7 +54,7 @@ const router = useRouter()
               <td>{user.lastlogin}</td> 
               
               <td>
-        <Button type="button" onClick={() => router.push(`/admin/edituser/${user.userid}`)}>
+        <Button type="button" onClick={() => router.push(`/admin/edituser/${user.userid}`)} variant="info">
     Edit user
     </Button> </td>
     <td> <Deleteuser userid={user.userid}/></td>
@@ -88,7 +88,7 @@ const router = useRouter()
               <td>{date.closuredate }</td>
               <td>{date.finalclosuredate}</td> 
               <td>
-        <Button type="button" onClick={() => router.push(`/admin/adddate`)}>
+        <Button type="button" onClick={() => router.push(`/admin/adddate`)} variant="info">
       Add date
     </Button> </td>
     <td><Deletdate closuredateid={date.closuredateid} /></td>

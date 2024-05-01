@@ -47,7 +47,7 @@ const router = useRouter()
               <td>{user.lastlogin}</td> 
               
               <td>
-        <Button type="button" onClick={() => router.push(`/qamanager/edituser/${user.userid}`)}>
+        <Button type="button" onClick={() => router.push(`/qamanager/edituser/${user.userid}`)} variant="info">
     Edit user
     </Button> </td>
     <td> <Deleteuser userid={user.userid}/></td>
@@ -74,7 +74,7 @@ const router = useRouter()
                <td>{categorie.categoryid}</td>
               <td>{categorie.categoryname}</td>
                <td>
-        <Button type="button" onClick={() => router.push(`/qamanager/addcategories`)}>
+        <Button type="button" onClick={() => router.push(`/qamanager/addcategories`)} variant="info">
       Add Category
     </Button> </td>
     <td><Deletcatergory categoryid={categorie.categoryid} /></td>

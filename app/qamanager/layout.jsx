@@ -1,12 +1,12 @@
 import React from 'react'
-import Sidebar from "../components/utils/qamanagersidebar"
+import Qamanagernavbar from "../components/utils/qamanagernavigationbar"
 export default function layout({ children }) {
   return (
     <>
-    <div className="pageContainer">
-        <Sidebar />
+    <div >
+        <Qamanagernavbar/>
          </div>
-    <div className="contentContainer">
+    <div >
         {children}
     </div>
     </>

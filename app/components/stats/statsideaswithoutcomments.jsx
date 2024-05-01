@@ -15,22 +15,30 @@ ArcElement,
   Legend,);
 import useSWR from 'swr';
 
-const  IdeawithoutChart = () => {
+const  IdeawithoutChart = ({ closuredateid }) => {
 const fetcher = (url) => fetch(url).then((res) => res.json());
 
-  const { data: ideasWithoutCommentsResults, error:ideasWithoutCommentsResultsError  } = useSWR('http://localhost:3000/api/fetch/stats/ideaswithoutcomments', fetcher, { refreshInterval: 4000 });
-   const { data: ideasWithCommentsResults, error: ideasWithCommentsResultsError } = useSWR('http://localhost:3000/api/fetch/stats/ideaswithcomments', fetcher, { refreshInterval: 4000 });
 
+   const { data: ideasWithoutCommentsResults, error:ideasWithoutCommentsResultsError  } = useSWR(`http://localhost:3000/api/fetch/stats/ideaswithoutcomments/${closuredateid}`, fetcher, { refreshInterval: 4000 });
+   const { data: ideasWithCommentsResults, error: ideasWithCommentsResultsError } = useSWR(`http://localhost:3000/api/fetch/stats/ideaswithcomments/${closuredateid}`, fetcher, { refreshInterval: 4000 });
   if (ideasWithoutCommentsResultsError) return <div>Error loading data</div>;
   if (!ideasWithoutCommentsResults) return <div>Loading...</div>;
 
     if (ideasWithCommentsResultsError) return <div>Error loading data</div>;
   if (!ideasWithCommentsResults) return <div>Loading...</div>;
 
+  
+if (ideasWithoutCommentsResults.length === 0) {
+  return <div className="staffideasContainer">No data found</div>;
+}
+if (ideasWithCommentsResults.length === 0) {
+  return <div className="staffideasContainer">No data found</div>;
+}
+
   const  countWithComments = ideasWithCommentsResults.length;
   const countWithoutComments = ideasWithoutCommentsResults.length;
   
-  // Chart.js data
+
   const chartData = {
     labels: ['Ideas with Comments', 'Ideas without Comments'],
     datasets: [
@@ -44,7 +52,7 @@ const fetcher = (url) => fetch(url).then((res) => res.json());
     ],
   };
 
-  // Chart.js options
+ 
   const chartOptions = {
     scales: {
       x: {

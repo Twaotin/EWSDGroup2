@@ -234,7 +234,7 @@ const response = await fetch("http://localhost:3000/api/edit/user", {
           </Form.Group>
         </Col>
       </Row>
-      <Button variant="primary" type="submit">
+      <Button variant="info" type="submit">
         Submit
       </Button>
     </Form>

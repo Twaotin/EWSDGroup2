@@ -14,16 +14,22 @@ ArcElement,
   Legend,);
 import useSWR from 'swr';
 
-const  IdeapercentageChart = () => {
+const  IdeapercentageChart = ({ closuredateid }) => {
 
     const fetcher = (url) => fetch(url).then((res) => res.json());
 
-  const { data: results, error  } = useSWR('http://localhost:3000/api/fetch/stats/ideapercentage', fetcher, { refreshInterval: 1000 });
+  const { data: results, error  } = useSWR(`http://localhost:3000/api/fetch/stats/ideapercentage/${closuredateid}`, fetcher, { refreshInterval: 1000 });
 
   if (error) return <div>Error loading data</div>;
   if (!results) return <div>Loading...</div>;
+
+  
+if (results.length === 0) {
+  return <div className="staffideasContainer">No data found</div>;
+}
+
        
-  console.log(results)
+ 
 
    const labels = results.map(entry => entry.departmentname);
   const data = results.map(entry => entry.ideaPercentage);

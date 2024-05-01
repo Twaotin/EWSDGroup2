@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Form, FormGroup, FormControl, FormLabel, FormCheck } from 'react-bootstrap';
 import Alert from 'react-bootstrap/Alert';
-
+import Button from 'react-bootstrap/Button';
 const CommentForm = ({ id }) => {
   const router = useRouter();
   const [comment, setComment] = useState({
@@ -93,9 +93,9 @@ const CommentForm = ({ id }) => {
             onChange={handleChange}
           />
         </FormGroup>
-        <button type="submit" className="btn btn-primary">
+        <Button type="submit" variant="info" >
           Submit
-        </button>
+        </Button>
       </Form>
     </div>
   );

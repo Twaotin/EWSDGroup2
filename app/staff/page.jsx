@@ -11,13 +11,13 @@ export default  async function staffdashboard() {
    <>
     <div > 
         
-         <div className=''>
-            <h3>Welcome : {session.user.email} </h3>
+         <div className='welcome'>
+            <h4>Welcome {session.user.email} </h4> 
          </div>
          
          <div>
       <h3>Your Ideas</h3>
-      <p> Your  Current Ideas</p>
+   
     </div>
     <Suspense fallback={<Loading/>}>
      <Userideas />

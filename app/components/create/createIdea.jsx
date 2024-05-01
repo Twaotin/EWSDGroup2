@@ -176,7 +176,7 @@ export default function CreateIdea() {
         <FormControl.Feedback type="invalid">{errors.agreedTCs}</FormControl.Feedback>
       </FormGroup>
 
-      <Button type="submit">Submit</Button>
+      <Button type="submit" variant="info">Submit</Button>
     </Form>
     </div>
     </div>

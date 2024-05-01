@@ -1,12 +1,12 @@
 import React from 'react'
-import Sidebar from "../components/utils/departmentsidebar"
+import Departmentnavbar from "../components/utils/departmentnavigationbar"
 export default function Departmentlayout({ children}) {
   return (
     <>
-       <div className="pageContainer">
-        <Sidebar />
+       <div >
+        <Departmentnavbar />
          </div>
-    <div className="contentContainer">
+    <div>
         {children}
     </div>
   

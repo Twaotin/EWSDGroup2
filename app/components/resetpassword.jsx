@@ -69,7 +69,7 @@ const Reset = () => {
           />
           <Form.Control.Feedback type="invalid">{errors.email}</Form.Control.Feedback>
         </Form.Group>
-        <Button type="submit" variant="primary">Submit</Button>
+        <Button type="submit" variant="info">Submit</Button>
       </Form>
       <Link href="http://localhost:3000/login" className="staffnavItem">Back</Link>
       </div>

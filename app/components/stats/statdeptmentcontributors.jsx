@@ -20,11 +20,17 @@ import useSWR from 'swr';
 
  
   
- const Statdeptmentcontributors  = () => {
+ const Statdeptmentcontributors  = ({ closuredateid }) => {
         const fetcher = (url) => fetch(url).then((res) => res.json());
-    const { data: results, error } = useSWR('http://localhost:3000/api/fetch/stats/contributors', fetcher, { refreshInterval: 1000 });
+    const { data: results, error } = useSWR(`http://localhost:3000/api/fetch/stats/contributors/${closuredateid}`, fetcher, { refreshInterval: 1000 });
        if (error) return <div>Error loading data</div>;
-       if (!results) return <div>Loading...</div>;
+   if (!results) return <div>Loading...</div>;
+   
+   if (results.length === 0) {
+    return <div className="staffideasContainer">No data found</div>;
+  }
+ 
+
    
         const labels = results.map(entry => entry.departmentname);
         const data = results.map(entry => entry._count.ideas);

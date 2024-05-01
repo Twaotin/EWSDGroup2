@@ -106,7 +106,7 @@ const ChangePassword = () => {
             </Form.Group>
           </Col>
         </Row>
-           <Button variant="primary" type="submit">
+           <Button variant="info" type="submit">
         Submit
       </Button>
           </Form>

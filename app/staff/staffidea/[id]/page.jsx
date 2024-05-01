@@ -148,7 +148,7 @@ export default async function details({params}) {
     
   return (
     <>
-    <div className='ideacontainer'>
+    <div className='staffideasContainer'>
     <div className='ideashow'>
       <Suspense fallback={<Loading/>}>
     

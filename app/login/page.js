@@ -87,8 +87,8 @@ const [success, setSuccess] = useState(null);
         )}
       </FormGroup>
       <div className="loginbutton-group">
-      <Button type="submit">Login</Button>
-      <Button type="button" onClick={() => router.push(`/resetpassword`)} className="loginreset-password ">
+      <Button type="submit" variant="info">Login</Button>
+      <Button type="button" onClick={() => router.push(`/resetpassword`)} className="loginreset-password " variant="info">
         Reset password
       </Button>
       </div>

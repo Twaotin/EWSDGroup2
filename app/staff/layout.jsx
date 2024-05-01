@@ -1,13 +1,16 @@
 import React from 'react'
-//import Navbarstaff from "../components/utils/staffnavbar"
-import Navbarstaff from "../components/sidebar"
+import NavbarComponent  from "../components/utils/staffnavigationbar"
+
 export default function Stafflayout({ children }) {
   return (
-   <>
-   <Navbarstaff />
-   <div>
+    <>
+      <div  >
+        <NavbarComponent />
+        </div>
+   <div >
     {children}
-   </div>
+      </div>
+      
     </>
   )
 }

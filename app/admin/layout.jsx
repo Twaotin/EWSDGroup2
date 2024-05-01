@@ -1,12 +1,13 @@
 import React from 'react'
-import Sidebar from "../components/utils/adminsidebar"
+
+import Adminbnavbar from "../components/utils/adminnavigationbar"
 export default function Adminlayout({ children }) {
   return (
     <>
-    <div className="pageContainer">
-        <Sidebar />
+    <div className="">
+        <Adminbnavbar />
          </div>
-    <div className="contentContainer">
+    <div className="">
         {children}
     </div>
     </>

@@ -11,7 +11,7 @@ export default function logout () {
   signOut({redirect: true,callbackUrl:'http://localhost:3000'})
   .then(() => console.log('Signed out successfully'))
   .catch(error => console.error('Sign out error:', error));
-}}>Sign out</Button>
+}} variant="info">Sign out</Button>
         </div>
         </div>
   )

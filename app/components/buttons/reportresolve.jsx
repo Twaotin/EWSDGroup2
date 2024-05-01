@@ -27,7 +27,7 @@ const response = await fetch("http://localhost:3000/api/edit/report", {
 
 }
 return (
-    <Button type="button"  onClick={handleDelete}>
+    <Button type="button"  onClick={handleDelete} variant="info">
       Resolve 
     </Button>
   );

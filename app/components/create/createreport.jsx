@@ -94,7 +94,7 @@ const CreateReport = ({ id }) => {
                 <small className="text-danger">{errors.reporttext.message}</small>
               )}
             </div>
-            <Button type="submit" variant="primary">
+            <Button type="submit" variant="info">
               Submit Report
             </Button>
           </form>

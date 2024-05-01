@@ -45,7 +45,7 @@ const CategoryForm = () => {
 
   return (
     <>
-      <div className='tabledataextra'>
+      <div className='tabledata'>
         <h2>Add categories</h2>
       {Message && <Alert variant="light"> {Message}</Alert>}
       <Form onSubmit={handleSubmit}>
@@ -63,7 +63,7 @@ const CategoryForm = () => {
             </Form.Group>
           </Col>
         </Row>
-        <Button variant="primary" type="submit">
+        <Button variant="info" type="submit">
           Submit
         </Button>
       </Form>
