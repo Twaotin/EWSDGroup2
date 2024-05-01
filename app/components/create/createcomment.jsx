@@ -23,13 +23,13 @@ const CommentForm = ({ id }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const newErrors = {};
+    const Formerrors = {};
     if (!comment.commenttext) {
-      newErrors.requiredFields = 'field are required';
+      Formerrors.requiredFields = 'comment text are required';
     }
 
-    if (Object.keys(newErrors).length > 0) {
-      setErrors(newErrors);
+    if (Object.keys(Formerrors).length > 0) {
+      setErrors(Formerrors);
       return;
     }
 

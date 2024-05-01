@@ -24,7 +24,7 @@ export async function POST(request) {
 
       const categoryId = parseInt(formData.categoryValue);
       console.log(categoryId)
-      const submissionDate = new Date();
+      const submissionDate = new Date('2025-02-15');
       console.log("submissionDate", submissionDate)
  
 

@@ -37,15 +37,15 @@ export default function Statisticsform() {
   const handleRegistration = async (e) => {
     e.preventDefault();
 
-    const newErrors = {};
+    const Formerrors = {};
     
     if (!formData.closuredateid.trim()) {
-      newErrors.closuredateid = "Academic year is required";
+      Formerrors.closuredateid = "Academic year is required";
     }
 
-    setErrors(newErrors);
+    setErrors(Formerrors);
 
-    if (Object.keys(newErrors).length === 0) {
+    if (Object.keys(Formerrors).length === 0) {
         try {
             console.log(formData.closuredateid)
         router.push(`http://localhost:3000/qamanager/statisticalanalysis/statisticsreportshow/${formData.closuredateid}`);
@@ -62,7 +62,7 @@ export default function Statisticsform() {
        
       }
     } else {
-      console.log("Form has errors:", newErrors);
+      console.log("Form has errors:", Formerrors);
     }
   };
 

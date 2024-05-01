@@ -54,7 +54,7 @@ const CreateReport = ({ id }) => {
 
   return (
     <>
-      <Button variant="primary" onClick={handleShow}>
+      <Button variant="info" onClick={handleShow} >
         Report idea or comment
       </Button>
 

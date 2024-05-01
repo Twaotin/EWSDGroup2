@@ -44,23 +44,23 @@ export default function CreateIdea() {
   const handleRegistration = async (e) => {
     e.preventDefault();
 
-    const newErrors = {};
+    const Formerrors = {};
     if (!formData.ideaTitle.trim()) {
-      newErrors.ideaTitle = "Title cannot be blank";
+      Formerrors.ideaTitle = "Title cannot be blank";
     }
     if (!formData.ideaText.trim()) {
-      newErrors.ideaText = "Text cannot be blank";
+      Formerrors.ideaText = "Text cannot be blank";
     }
     if (!formData.categoryValue.trim()) {
-      newErrors.categoryValue = "Category is required";
+      Formerrors.categoryValue = "Category is required";
     }
     if (formData.agreedTCs !== true) {
-      newErrors.agreedTCs = "Terms and Conditions need to be accepted";
+      Formerrors.agreedTCs = "Terms and Conditions need to be accepted";
     }
 
-    setErrors(newErrors);
+    setErrors(Formerrors);
 
-    if (Object.keys(newErrors).length === 0) {
+    if (Object.keys(Formerrors).length === 0) {
       try {
         const response = await fetch("http://localhost:3000/api/create/idea", {
           method: "POST",
@@ -96,7 +96,7 @@ export default function CreateIdea() {
        
       }
     } else {
-      console.log("Form has errors:", newErrors);
+      console.log("Form has errors:", Formerrors);
     }
   };
 

@@ -24,19 +24,19 @@ const ChangePassword = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const newErrors = {};
+    const Formerrors = {};
     if (!formData.currentPassword.trim()) {
-      newErrors.currentPassword = 'Current password is required';
+      Formerrors.currentPassword = 'Current password is required';
     }
     if (!formData.newPassword.trim()) {
-      newErrors.newPassword = 'New password is required';
+      Formerrors.newPassword = 'New password is required';
     } else if (formData.newPassword.length < 5) {
-      newErrors.newPassword = 'New password must be at least 5 characters long';
+      Formerrors.newPassword = 'New password must be at least 5 characters long';
     }
 
-    setErrors(newErrors);
+    setErrors(Formerrors);
 
-    if (Object.keys(newErrors).length === 0) {
+    if (Object.keys(Formerrors).length === 0) {
       setIsLoading(true); 
       try {
     

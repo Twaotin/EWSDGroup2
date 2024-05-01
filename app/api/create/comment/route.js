@@ -70,7 +70,7 @@ export async function POST(request) {
         await sendCommentNotification(commentData, id);
     
      
-        return NextResponse.json({ message: 'Idea submitted successfully!' })
+        return NextResponse.json({ message: 'Comment submitted successfully!' })
       }
     }
    }catch (error) {

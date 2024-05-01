@@ -76,28 +76,33 @@ const [Message, setMessage] = useState('');
   const handleRegistration = async (e) => {
   e.preventDefault();
 
-  const newErrors = {};
+  const Formerrors = {};
     if (!formData.username.trim()) {
-      newErrors.username = "username  cannot be blank";
+      Formerrors.username = "username  cannot be blank";
     }
     if (!formData.email.trim()) {
-      newErrors.ideaText = "email cannot be blank";
+      Formerrors.ideaText = "email cannot be blank";
     }
     if (!formData.password.trim()) {
-      newErrors.password = "password is required";
+      Formerrors.password = "password is required";
+    } else {
+      const regex = /^(?=.*\d)(?=.*[a-zA-Z])[A-Za-z\d]{5,}$/;
+      if (!regex.test(formData.password)) {
+        Formerrors.password = "Password must be at least 5 characters long, contain one number, and one letter (uppercase or lowercase).";
+      }
     }
     if (!formData.roleid.trim()) {
-      newErrors.roleid = "role is required";
+      Formerrors.roleid = "role is required";
     }
     
     if (!formData.departmentid.trim()) {
-      newErrors.departmentid = "department is required";
+      Formerrors.departmentid = "department is required";
     }
     
-    setErrors(newErrors);
+    setErrors(Formerrors);
      
 
-     if (Object.keys(newErrors).length === 0) {
+     if (Object.keys(Formerrors).length === 0) {
     
         const response = await fetch("http://localhost:3000/api/create/user", {
           method: "POST",
