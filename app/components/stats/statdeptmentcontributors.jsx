@@ -33,13 +33,13 @@ import useSWR from 'swr';
 
    
         const labels = results.map(entry => entry.departmentname);
-        const data = results.map(entry => entry._count.ideas);
+        const data = results.map(entry => entry.contributorCount);
 
         const chartData = {
     labels: labels,
     datasets: [
       {
-        label: 'Ideas Made by Each Department',
+        label: 'Idea contributers in Each Department',
         data: data,
         backgroundColor: 'rgba(75, 192, 192, 0.2)',
         borderColor: 'rgba(75, 192, 192, 1)',
@@ -55,7 +55,7 @@ import useSWR from 'swr';
         beginAtZero: true,
         title: {
           display: true,
-          text: 'Number of Ideas',
+          text: 'Number idea contributers in a department',
         },
       },
     },

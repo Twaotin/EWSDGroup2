@@ -80,8 +80,8 @@ const user = await prisma.users.findUnique({
                               userId:user.userid,
                                  role: user.roles.name,  
                             department: user.department.departmentname,
-                            departmentId: user.department.departmentid
-                           
+                            departmentId: user.department.departmentid,
+                             
                             }
                                   return send
                             }else {
@@ -121,7 +121,8 @@ const user = await prisma.users.findUnique({
         token.role = user.role
         token.department = user.department
         token.departmentId = user.departmentId
-        token.email= user.email
+        token.email = user.email
+        
       }
       return token;
     },
