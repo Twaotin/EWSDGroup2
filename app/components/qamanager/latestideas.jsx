@@ -35,7 +35,9 @@ const Latest = () => {
           <div >
           <h5>Idea Title: {idea.ideatitle}</h5>
          <h5> By:{idea.user.username}</h5>
-          <h5>{idea.submissiondate}</h5>
+            <h5>{idea.submissiondate}</h5>
+            {idea.isclosure && <h5>Closure date reached </h5>}
+          {idea.isfinalclosure && <h5>Final Closure date reached </h5> }
           <Link href={`/qamanager/idea/${idea.ideaid}`} className=" buttonStyle">View</Link>
           </div>
         </div>

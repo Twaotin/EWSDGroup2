@@ -72,6 +72,8 @@ const Popular = () => {
                <div >
              <h5>Idea Title: {idea.ideatitle}</h5>
                 <h5> By:{idea.user.username}</h5>
+                {idea.isclosure && <h5>Closure date reached </h5>}
+          {idea.isfinalclosure && <h5>Final Closure date reached </h5> }
                 <div>thumbup {thumbsUpCounts[idea.ideaid] }</div>
               <Link href={`/qamanager/idea/${idea.ideaid}`} className="buttonStyle">View</Link>
               </div>

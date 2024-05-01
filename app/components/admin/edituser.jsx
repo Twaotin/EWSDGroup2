@@ -134,7 +134,7 @@ const response = await fetch("http://localhost:3000/api/edit/user", {
 
   return (
     <>    
-      <div className='tablegeneric'>
+      <div className='tabledata'>
         <h2>Edit User</h2>
     {Message && <Alert variant="light"> {Message}</Alert>}
      <Form onSubmit={handleRegistration}>
